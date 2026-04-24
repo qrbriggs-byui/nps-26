@@ -34,6 +34,28 @@ header nav {
   border-left: 2px solid black;
   padding: 1rem;
   font-size: 1.5rem;
+  position: relative;
+}
+
+#header-menu-options {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 10;
+  background-color: var(--header-color);  
+}
+
+#header-menu-options ul {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+#header-menu-options li {
+  padding: .5rem 0.75rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--background-color);
 }
 
 #hero img {
@@ -46,7 +68,11 @@ header nav {
   background-color: var(--accent-color);
   margin-top: -140px;
   opacity: 70%;
-  border: 1px solid black;
+  border: 1px solid black;  
+}
+
+#overview.overlay-hover {
+  background-color: var(--background-color);
 }
 
 #overview h2 {
@@ -94,4 +120,8 @@ footer {
   background-color: var(--header-color);
   color: white;
   border: 1px solid black;
+}
+
+.is-hidden {
+  display: none;
 }
