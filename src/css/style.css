@@ -12,7 +12,7 @@ body {
 }
 
 #content {
-  max-width: 800px;
+  max-width: 1024px;
   margin: 0 auto;
   background-color: white;
   height: 100vh;
@@ -34,6 +34,28 @@ header nav {
   border-left: 2px solid black;
   padding: 1rem;
   font-size: 1.5rem;
+  position: relative;
+}
+
+#header-menu-options {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 10;
+  background-color: var(--header-color);  
+}
+
+#header-menu-options ul {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+#header-menu-options li {
+  padding: .5rem 0.75rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--background-color);
 }
 
 #hero img {
@@ -46,7 +68,11 @@ header nav {
   background-color: var(--accent-color);
   margin-top: -140px;
   opacity: 70%;
-  border: 1px solid black;
+  border: 1px solid black;  
+}
+
+#overview.overlay-hover {
+  background-color: var(--background-color);
 }
 
 #overview h2 {
@@ -94,4 +120,55 @@ footer {
   background-color: var(--header-color);
   color: white;
   border: 1px solid black;
+}
+
+.is-hidden {
+  display: none;
+}
+
+#promotions {
+  border: 1px solid black;
+  background-color: #f3f1ea;
+  padding: 1rem;
+}
+
+#promotions h2,
+#promotions p {
+  margin: 0.25rem 0;
+}
+
+#header-maps-link,
+#park-maps-link {
+  cursor: pointer;
+}
+
+#map-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+/* Add this rule so class-based hiding works on the modal */
+#map-modal.is-hidden {
+  display: none;
+}
+
+#map-modal-content {
+  background-color: white;
+  border: 1px solid black;
+  width: min(900px, 95vw);
+  padding: 0.75rem;
+}
+
+#map-modal-close {
+  float: right;
+  border: 1px solid black;
+  background-color: white;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
 }
