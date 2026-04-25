@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WDD 231 Events Examples</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main>
+        <header class="hero">
+            <h1>WDD 231 Event Examples</h1>
+            <p class="subtitle">Simple examples for classroom demos</p>
+        </header>
+
+        <section class="content">
+            <p><a href="index.html">← Back to examples</a></p>
+
+            <div class="demo-grid">
+                <!-- Page Load -->
+                <article class="card">
+                    <h2>Page Finishing Loading</h2>
+                    <p class="hint">This message appears when the page load event fires.</p>
+                    <p id="loadOutput" class="output">Waiting for page to finish loading...</p>
+                </article>
+
+                <!-- Button Click -->
+                <article class="card">
+                    <h2>Button Click</h2>
+                    <button id="clickBtn" class="btn">Click me</button>
+                    <p id="clickOutput" class="output">Button clicks: 0</p>
+                </article>
+
+                <!-- Typing -->
+                <article class="card">
+                    <h2>Typing in a Form Field</h2>
+                    <label for="typingInput">Type here:</label>
+                    <input id="typingInput" type="text" placeholder="Start typing..." />
+                    <p id="typingOutput" class="output">Current value: (empty)</p>
+                </article>
+
+                <!-- Mouse Move -->
+                <article class="card">
+                    <h2>Moving the Mouse</h2>
+                    <div id="mouseArea" class="mouse-area">Move your mouse in this box</div>
+                    <p id="mouseOutput" class="output">Mouse position: x: -, y: -</p>
+                </article>
+
+                <!-- Keyboard -->
+                <article class="card">
+                    <h2>Pressing a Key on the Keyboard</h2>
+                    <label for="keyInput">Focus this field, then press keys:</label>
+                    <input id="keyInput" type="text" placeholder="Press any key..." />
+                    <p id="keyOutput" class="output">Last key: none</p>
+                </article>
+
+                <!-- Event Propagation -->
+                <article class="card">
+                    <h2>Event Propagation (Bubbling)</h2>
+                    <p class="hint">Click the INNER box. You will see inner → middle → outer.</p>
+                    <div id="outerBox" class="prop-box outer">
+                        OUTER
+                        <div id="middleBox" class="prop-box middle">
+                            MIDDLE
+                            <button id="innerBox" class="prop-box inner" type="button">INNER</button>
+                        </div>
+                    </div>
+                    <p id="propOutput" class="output">Propagation log: (none yet)</p>
+                </article>
+
+                <!-- Event Delegation -->
+                <article class="card">
+                    <h2>Event Delegation</h2>
+                    <p class="hint">One listener on the parent handles all child button clicks.</p>
+                    <ul id="delegationList" class="delegate-list">
+                        <li><button type="button" data-item="HTML">HTML</button></li>
+                        <li><button type="button" data-item="CSS">CSS</button></li>
+                        <li><button type="button" data-item="JavaScript">JavaScript</button></li>
+                    </ul>
+                    <p id="delegateOutput" class="output">Clicked item: none</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Page finishing loading
+        window.addEventListener("load", () => {
+            const loadOutput = document.getElementById("loadOutput");
+            loadOutput.textContent = "Page fully loaded at " + new Date().toLocaleTimeString();
+        });
+
+        // Button click
+        let clickCount = 0;
+        const clickBtn = document.getElementById("clickBtn");
+        const clickOutput = document.getElementById("clickOutput");
+
+        clickBtn.addEventListener("click", () => {
+            clickCount++;
+            clickOutput.textContent = `Button clicks: ${clickCount}`;
+        });
+
+        // Typing in a form field
+        const typingInput = document.getElementById("typingInput");
+        const typingOutput = document.getElementById("typingOutput");
+
+        typingInput.addEventListener("input", (event) => {
+            const value = event.target.value.trim();
+            typingOutput.textContent = `Current value: ${value || "(empty)"}`;
+        });
+
+        // Moving mouse
+        const mouseArea = document.getElementById("mouseArea");
+        const mouseOutput = document.getElementById("mouseOutput");
+
+        mouseArea.addEventListener("mousemove", (event) => {
+            const rect = mouseArea.getBoundingClientRect();
+            const x = Math.floor(event.clientX - rect.left);
+            const y = Math.floor(event.clientY - rect.top);
+            mouseOutput.textContent = `Mouse position: x: ${x}, y: ${y}`;
+        });
+
+        // Pressing a key
+        const keyInput = document.getElementById("keyInput");
+        const keyOutput = document.getElementById("keyOutput");
+
+        keyInput.addEventListener("keydown", (event) => {
+            keyOutput.textContent = `Last key: ${event.key}`;
+        });
+
+        // Event propagation (bubbling)
+        const outerBox = document.getElementById("outerBox");
+        const middleBox = document.getElementById("middleBox");
+        const innerBox = document.getElementById("innerBox");
+        const propOutput = document.getElementById("propOutput");
+
+        let propLog = [];
+
+        function addPropagationMessage(message) {
+            propLog.push(message);
+            if (propLog.length > 6) propLog.shift();
+            propOutput.textContent = "Propagation log: " + propLog.join(" → ");
+        }
+
+        outerBox.addEventListener("click", () => addPropagationMessage("outer"));
+        middleBox.addEventListener("click", () => addPropagationMessage("middle"));
+        innerBox.addEventListener("click", () => addPropagationMessage("inner"));
+
+        // Event delegation
+        const delegationList = document.getElementById("delegationList");
+        const delegateOutput = document.getElementById("delegateOutput");
+
+        delegationList.addEventListener("click", (event) => {
+            const button = event.target.closest("button[data-item]");
+            if (!button) return;
+
+            delegateOutput.textContent = `Clicked item: ${button.dataset.item}`;
+        });
+    </script>
+</body>
+</html>
