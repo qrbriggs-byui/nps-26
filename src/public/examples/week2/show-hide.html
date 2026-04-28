@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Show and Hide Elements Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.4;
+      margin: 24px;
+      max-width: 900px;
+    }
+
+    h1, h2 {
+      margin-bottom: 8px;
+    }
+
+    section {
+      border: 1px solid #ddd;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    .box {
+      border: 1px solid #999;
+      background: #f5f5f5;
+      padding: 10px;
+      min-width: 180px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .invisible {
+      visibility: hidden;
+    }
+
+    .transparent {
+      opacity: 0;
+    }
+
+    .non-interactive {
+      pointer-events: none;
+    }
+
+    button {
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    .note {
+      font-size: 0.95rem;
+      color: #333;
+      margin: 4px 0 0;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin-top: 8px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 6px 8px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <h1>Showing and Hiding Elements</h1>
+  <p>This page demonstrates simple ways to hide elements with CSS and JavaScript.</p>
+
+  <section>
+    <h2>1) CSS Comparison (Static Examples)</h2>
+    <div class="row">
+      <div class="box">Normal box (visible)</div>
+      <div class="box hidden">display: none</div>
+      <div class="box invisible">visibility: hidden</div>
+      <div class="box transparent">opacity: 0</div>
+    </div>
+    <p class="note">Notice: <code>display: none</code> removes layout space. The other two keep space.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Technique</th>
+          <th>Visible</th>
+          <th>Takes Space</th>
+          <th>Clickable</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>display: none</td><td>No</td><td>No</td><td>No</td></tr>
+        <tr><td>visibility: hidden</td><td>No</td><td>Yes</td><td>No</td></tr>
+        <tr><td>opacity: 0</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>2) JavaScript: Direct Style Changes</h2>
+    <div id="directBox" class="box">Direct-style target box (click me)</div>
+    <div class="row">
+      <button id="hideDisplayBtn">display = none</button>
+      <button id="showDisplayBtn">display = block</button>
+      <button id="hideVisibilityBtn">visibility = hidden</button>
+      <button id="showVisibilityBtn">visibility = visible</button>
+      <button id="hideOpacityBtn">opacity = 0</button>
+      <button id="showOpacityBtn">opacity = 1</button>
+      <button id="resetDirectBtn">Reset</button>
+    </div>
+    <p class="note">These buttons set style properties directly in JavaScript. Try clicking the box after <code>opacity = 0</code>.</p>
+  </section>
+
+  <section>
+    <h2>3) JavaScript: Toggle CSS Classes</h2>
+    <div id="classBox" class="box">Class-toggle target box (click me)</div>
+    <div class="row">
+      <button id="addHiddenBtn">Add .hidden</button>
+      <button id="removeHiddenBtn">Remove .hidden</button>
+      <button id="toggleHiddenBtn">Toggle .hidden</button>
+      <button id="toggleTransparentBtn">Toggle .transparent</button>
+    </div>
+    <p class="note">This approach separates behavior (JS) from style (CSS classes). Try clicking after toggling <code>.transparent</code>.</p>
+  </section>
+
+  <section>
+    <h2>4) Menu Toggle Example</h2>
+    <button id="menuBtn">Toggle Menu</button>
+    <nav id="menu" class="hidden box" style="margin-top: 8px;">
+      Menu content here
+    </nav>
+    <p class="note">This mirrors the reading example with <code>classList.toggle("hidden")</code>.</p>
+  </section>
+
+  <script>
+    const directBox = document.getElementById("directBox");
+    const classBox = document.getElementById("classBox");
+    const menu = document.getElementById("menu");
+
+    directBox.addEventListener("click", () => {
+      alert("You Clicked Me");
+    });
+
+    classBox.addEventListener("click", () => {
+      alert("You Clicked Me");
+    });
+
+    document.getElementById("hideDisplayBtn").addEventListener("click", () => {
+      directBox.style.display = "none";
+    });
+
+    document.getElementById("showDisplayBtn").addEventListener("click", () => {
+      directBox.style.display = "block";
+    });
+
+    document.getElementById("hideVisibilityBtn").addEventListener("click", () => {
+      directBox.style.visibility = "hidden";
+    });
+
+    document.getElementById("showVisibilityBtn").addEventListener("click", () => {
+      directBox.style.visibility = "visible";
+    });
+
+    document.getElementById("hideOpacityBtn").addEventListener("click", () => {
+      directBox.style.opacity = "0";
+    });
+
+    document.getElementById("showOpacityBtn").addEventListener("click", () => {
+      directBox.style.opacity = "1";
+    });
+
+    document.getElementById("resetDirectBtn").addEventListener("click", () => {
+      directBox.style.display = "block";
+      directBox.style.visibility = "visible";
+      directBox.style.opacity = "1";
+    });
+
+    document.getElementById("addHiddenBtn").addEventListener("click", () => {
+      classBox.classList.add("hidden");
+    });
+
+    document.getElementById("removeHiddenBtn").addEventListener("click", () => {
+      classBox.classList.remove("hidden");
+    });
+
+    document.getElementById("toggleHiddenBtn").addEventListener("click", () => {
+      classBox.classList.toggle("hidden");
+    });
+
+    document.getElementById("toggleTransparentBtn").addEventListener("click", () => {
+      classBox.classList.toggle("transparent");
+    });
+
+    document.getElementById("menuBtn").addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+    });
+  </script>
+</body>
+</html>
