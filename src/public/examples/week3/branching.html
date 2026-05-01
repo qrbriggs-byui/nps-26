@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Branching Examples</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      margin: 0;
+      padding: 0;
+      background: #f4f7f9;
+      color: #222;
+    }
+
+    header, main, footer {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    header {
+      background: #1f4d3a;
+      color: white;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    h1, h2 {
+      margin-top: 0;
+    }
+
+    section {
+      background: white;
+      margin: 1rem 0;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    label {
+      display: block;
+      margin: 0.5rem 0;
+    }
+
+    input, select, button {
+      font: inherit;
+      padding: 0.5rem;
+      margin-top: 0.25rem;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background: #2a6f97;
+      color: white;
+    }
+
+    button:hover {
+      background: #1f5675;
+    }
+
+    .output {
+      margin-top: 0.75rem;
+      padding: 0.75rem;
+      background: #eef6fb;
+      border-left: 4px solid #2a6f97;
+      border-radius: 6px;
+    }
+
+    .menu {
+      margin-top: 0.75rem;
+      padding: 0.75rem;
+      background: #f1f8ec;
+      border: 1px solid #b9d7a8;
+      border-radius: 6px;
+    }
+
+    .card {
+      margin-top: 0.75rem;
+      padding: 1rem;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      background: #fafafa;
+      transition: 0.2s ease;
+    }
+
+    .highlight {
+      border-color: #f0b429;
+      background: #fff8db;
+    }
+
+    code {
+      background: #eee;
+      padding: 0.1rem 0.3rem;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Understanding Branching Logic in JavaScript</h1>
+    <p>This page demonstrates <code>if</code>, <code>switch</code>, ternary operators, conditional rendering, and Boolean operators.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>1. If / Else If / Else</h2>
+      <label for="temperature">Enter a temperature:</label>
+      <input type="number" id="temperature" value="75" />
+      <button id="checkTemperature">Check Temperature</button>
+      <div id="temperatureOutput" class="output">Result will appear here.</div>
+    </section>
+
+    <section>
+      <h2>2. Switch Statement</h2>
+      <label for="parkSelect">Choose a park:</label>
+      <select id="parkSelect">
+        <option value="Yellowstone">Yellowstone</option>
+        <option value="Yosemite">Yosemite</option>
+        <option value="Zion">Zion</option>
+        <option value="Bryce Canyon">Bryce Canyon</option>
+      </select>
+      <button id="checkPark">Learn About the Park</button>
+      <div id="parkOutput" class="output">Park information will appear here.</div>
+    </section>
+
+    <section>
+      <h2>3. Ternary Operator</h2>
+      <label>
+        <input type="checkbox" id="isOpen" checked />
+        Park is open
+      </label>
+      <div id="openOutput" class="output">Open/closed message will appear here.</div>
+    </section>
+
+    <section>
+      <h2>4. Conditional Rendering</h2>
+
+      <label>
+        <input type="checkbox" id="isLoggedIn" />
+        Logged in
+      </label>
+      <p id="status" class="output">Please log in.</p>
+
+      <label>
+        <input type="checkbox" id="isMenuOpen" />
+        Show menu
+      </label>
+      <div id="menu" class="menu" style="display: none;">
+        <strong>Park Menu</strong>
+        <ul>
+          <li>Trails</li>
+          <li>Camping</li>
+          <li>Visitor Center</li>
+        </ul>
+      </div>
+
+      <label>
+        <input type="checkbox" id="isFavorite" />
+        Mark as favorite
+      </label>
+      <div id="favoriteCard" class="card">
+        This park card will be highlighted when marked as favorite.
+      </div>
+    </section>
+
+    <section>
+      <h2>5. Boolean Operators</h2>
+      <p>Try combining conditions with <code>&&</code>, <code>||</code>, and <code>!</code>.</p>
+
+      <label>
+        <input type="checkbox" id="accessOpen" checked />
+        Park is open
+      </label>
+      <label>
+        <input type="checkbox" id="hasReservation" />
+        Has reservation
+      </label>
+      <label>
+        <input type="checkbox" id="isMember" />
+        Is member
+      </label>
+
+      <button id="checkAccess">Check Access</button>
+      <div id="accessOutput" class="output">Access result will appear here.</div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Example page for Week 3 branching logic.</p>
+  </footer>
+
+  <script>
+    const temperatureInput = document.getElementById("temperature");
+    const checkTemperatureButton = document.getElementById("checkTemperature");
+    const temperatureOutput = document.getElementById("temperatureOutput");
+
+    const parkSelect = document.getElementById("parkSelect");
+    const checkParkButton = document.getElementById("checkPark");
+    const parkOutput = document.getElementById("parkOutput");
+
+    const isOpenCheckbox = document.getElementById("isOpen");
+    const openOutput = document.getElementById("openOutput");
+
+    const isLoggedInCheckbox = document.getElementById("isLoggedIn");
+    const status = document.getElementById("status");
+
+    const isMenuOpenCheckbox = document.getElementById("isMenuOpen");
+    const menu = document.getElementById("menu");
+
+    const isFavoriteCheckbox = document.getElementById("isFavorite");
+    const favoriteCard = document.getElementById("favoriteCard");
+
+    const accessOpenCheckbox = document.getElementById("accessOpen");
+    const hasReservationCheckbox = document.getElementById("hasReservation");
+    const isMemberCheckbox = document.getElementById("isMember");
+    const checkAccessButton = document.getElementById("checkAccess");
+    const accessOutput = document.getElementById("accessOutput");
+
+    function updateTemperature() {
+      const temperature = Number(temperatureInput.value);
+
+      if (temperature > 85) {
+        temperatureOutput.textContent = "It's hot!";
+      } else if (temperature > 65) {
+        temperatureOutput.textContent = "It's mild!";
+      } else {
+        temperatureOutput.textContent = "It's cold!";
+      }
+    }
+
+    function updateParkInfo() {
+      const park = parkSelect.value;
+
+      switch (park) {
+        case "Yellowstone":
+          parkOutput.textContent = "Yellowstone is famous for geysers.";
+          break;
+        case "Yosemite":
+          parkOutput.textContent = "Yosemite is known for granite cliffs.";
+          break;
+        case "Zion":
+          parkOutput.textContent = "Zion is great for hiking.";
+          break;
+        default:
+          parkOutput.textContent = "Explore a new park!";
+      }
+    }
+
+    function updateOpenMessage() {
+      const isOpen = isOpenCheckbox.checked;
+      const message = isOpen ? "Park is open!" : "Park is closed.";
+      openOutput.textContent = message;
+    }
+
+    function updateLoginStatus() {
+      const isLoggedIn = isLoggedInCheckbox.checked;
+
+      if (isLoggedIn) {
+        status.textContent = "Welcome back!";
+      } else {
+        status.textContent = "Please log in.";
+      }
+    }
+
+    function updateMenu() {
+      const isMenuOpen = isMenuOpenCheckbox.checked;
+      menu.style.display = isMenuOpen ? "block" : "none";
+    }
+
+    function updateFavoriteCard() {
+      const isFavorite = isFavoriteCheckbox.checked;
+
+      if (isFavorite) {
+        favoriteCard.classList.add("highlight");
+      } else {
+        favoriteCard.classList.remove("highlight");
+      }
+    }
+
+    function updateAccess() {
+      const isOpen = accessOpenCheckbox.checked;
+      const hasReservation = hasReservationCheckbox.checked;
+      const isMember = isMemberCheckbox.checked;
+
+      if (isOpen && (hasReservation || isMember)) {
+        accessOutput.textContent = "You are allowed to enter.";
+      } else if (!isOpen) {
+        accessOutput.textContent = "The park is closed.";
+      } else {
+        accessOutput.textContent = "You need a reservation or membership.";
+      }
+    }
+
+    checkTemperatureButton.addEventListener("click", updateTemperature);
+    checkParkButton.addEventListener("click", updateParkInfo);
+    isOpenCheckbox.addEventListener("change", updateOpenMessage);
+    isLoggedInCheckbox.addEventListener("change", updateLoginStatus);
+    isMenuOpenCheckbox.addEventListener("change", updateMenu);
+    isFavoriteCheckbox.addEventListener("change", updateFavoriteCard);
+    checkAccessButton.addEventListener("click", updateAccess);
+
+    updateTemperature();
+    updateParkInfo();
+    updateOpenMessage();
+    updateLoginStatus();
+    updateMenu();
+    updateFavoriteCard();
+    updateAccess();
+  </script>
+</body>
+</html>

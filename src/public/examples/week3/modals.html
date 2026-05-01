@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Modal Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f7fb;
+      color: #222;
+      line-height: 1.5;
+    }
+
+    header,
+    main,
+    footer {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    header {
+      background: #1d3557;
+      color: white;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    section {
+      background: white;
+      margin: 1rem 0;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    h1,
+    h2 {
+      margin-top: 0;
+    }
+
+    button {
+      font: inherit;
+      padding: 0.6rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .primary-btn {
+      background: #457b9d;
+      color: white;
+    }
+
+    .primary-btn:hover {
+      background: #35627d;
+    }
+
+    .close-btn,
+    .secondary-btn {
+      background: #e9ecef;
+      color: #222;
+    }
+
+    .close-btn:hover,
+    .secondary-btn:hover {
+      background: #d9dde1;
+    }
+
+    .status {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      background: #eef6fb;
+      border-left: 4px solid #457b9d;
+      border-radius: 6px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+
+    .modal-overlay.hidden {
+      display: none;
+    }
+
+    .modal {
+      width: min(500px, 100%);
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      transform: scale(0.95);
+      opacity: 0;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .modal.show {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+      padding: 1rem;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .close-btn {
+      font-size: 1.2rem;
+      line-height: 1;
+      width: 2rem;
+      height: 2rem;
+      padding: 0;
+    }
+
+    .modal-footer {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: flex-end;
+      border-top: 1px solid #ddd;
+    }
+
+    code {
+      background: #f1f1f1;
+      padding: 0.1rem 0.3rem;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Understanding HTML Modals</h1>
+    <p>This page demonstrates a simple modal with an overlay, close controls, event bubbling protection, and keyboard support.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Modal Demo</h2>
+      <p>Open the modal, then try these actions:</p>
+      <ul>
+        <li>Click the <strong>Open Modal</strong> button</li>
+        <li>Close it with the <strong>×</strong> button</li>
+        <li>Close it by clicking outside the modal</li>
+        <li>Close it with the <strong>Escape</strong> key</li>
+      </ul>
+
+      <button id="openModal" class="primary-btn">Open Modal</button>
+
+      <div id="status" class="status">
+        Modal is currently closed.
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Example page for Week 3 modals.</p>
+  </footer>
+
+  <div id="modalOverlay" class="modal-overlay hidden">
+    <div id="modalBox" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h2 id="modalTitle">Park Alert</h2>
+        <button id="closeModal" class="close-btn" aria-label="Close modal">×</button>
+      </div>
+
+      <div class="modal-body">
+        <p>This is a basic modal example.</p>
+        <p>
+          The dark background is the <strong>overlay</strong>. The box in the center is the
+          <strong>modal container</strong>.
+        </p>
+        <p>
+          Clicking inside this box should <strong>not</strong> close the modal because
+          <code>event.stopPropagation()</code> is used.
+        </p>
+      </div>
+
+      <div class="modal-footer">
+        <button id="cancelModal" class="secondary-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const openButton = document.getElementById("openModal");
+    const closeButton = document.getElementById("closeModal");
+    const cancelButton = document.getElementById("cancelModal");
+    const modalOverlay = document.getElementById("modalOverlay");
+    const modalBox = document.getElementById("modalBox");
+    const status = document.getElementById("status");
+
+    function openModal() {
+      if (!modalOverlay.classList.contains("hidden")) {
+        return;
+      }
+
+      modalOverlay.classList.remove("hidden");
+      modalBox.classList.add("show");
+      document.body.style.overflow = "hidden";
+      status.textContent = "Modal is open. Background scrolling is disabled.";
+    }
+
+    function closeModal(message) {
+      modalBox.classList.remove("show");
+      modalOverlay.classList.add("hidden");
+      document.body.style.overflow = "auto";
+      status.textContent = message;
+    }
+
+    openButton.addEventListener("click", openModal);
+
+    closeButton.addEventListener("click", () => {
+      closeModal("Modal closed with the close button.");
+    });
+
+    cancelButton.addEventListener("click", () => {
+      closeModal("Modal closed with the footer button.");
+    });
+
+    modalOverlay.addEventListener("click", () => {
+      closeModal("Modal closed by clicking the overlay.");
+    });
+
+    modalBox.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !modalOverlay.classList.contains("hidden")) {
+        closeModal("Modal closed with the Escape key.");
+      }
+    });
+  </script>
+</body>
+</html>
