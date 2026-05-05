@@ -33,7 +33,6 @@
       margin: 1rem 0;
       padding: 1rem;
       border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
     h1,
@@ -93,7 +92,6 @@
       background: rgba(0, 0, 0, 0.5);
       z-index: 1000;
       padding: 1rem;
-      box-sizing: border-box;
     }
 
     .modal-overlay.hidden {
@@ -104,14 +102,10 @@
       width: min(500px, 100%);
       background: white;
       border-radius: 12px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-      transform: scale(0.95);
       opacity: 0;
-      transition: transform 0.25s ease, opacity 0.25s ease;
     }
 
     .modal.show {
-      transform: scale(1);
       opacity: 1;
     }
 
@@ -182,6 +176,7 @@
 
   <footer>
     <p>Example page for Week 3 modals.</p>
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci distinctio illo minus, aspernatur aut dolore. Aliquam temporibus expedita unde fugiat harum excepturi hic sed tempora alias dolores quo voluptates sapiente natus minus, iste veritatis repellendus itaque eveniet dolore ad animi quae libero vitae aliquid! Iure, asperiores. Non porro optio repellendus repudiandae molestiae nemo qui tempore itaque vel eius aut harum facilis asperiores, adipisci quisquam corporis magnam voluptatem sequi architecto fugit animi nulla expedita exercitationem? Cumque, velit! Cum eius obcaecati nostrum numquam eveniet tempora debitis illum in enim laborum reprehenderit placeat ratione maxime minus fuga quidem facilis harum animi fugiat esse minima, aperiam pariatur alias sint. Iure aliquid ab enim, libero quia distinctio amet natus in accusamus officia voluptate voluptates eos tempora fugiat temporibus. Quo incidunt deleniti repellat similique perferendis fugit ratione amet hic totam repudiandae, sit, recusandae ea sunt non voluptatibus quos explicabo excepturi sequi rem! Error in ducimus, aliquid rerum tenetur unde repellendus porro nisi, itaque iste veritatis deserunt, eveniet officia reprehenderit! Nemo magnam distinctio amet sapiente blanditiis! Nostrum asperiores labore sequi illum perferendis quia aliquid eius alias vitae, et ducimus optio, adipisci dignissimos voluptates, accusantium fugiat iure dolore! Ratione culpa quod placeat error quasi aperiam optio recusandae sint a itaque. Aut, explicabo officiis unde autem earum modi non esse recusandae nemo voluptate pariatur laborum libero eveniet culpa delectus. Nihil assumenda quo in quasi distinctio aliquid laudantium modi, rem facilis voluptatum est illum at labore deserunt, cupiditate laborum aperiam numquam et repudiandae asperiores error. Itaque doloribus iste laborum tenetur eos vitae aspernatur, eaque incidunt error non reprehenderit molestias provident alias tempore. Voluptate repudiandae saepe accusantium nesciunt corrupti! Enim, dignissimos minima? Perspiciatis voluptate tenetur minus rem repellat quis unde perferendis corrupti assumenda possimus, suscipit saepe iusto dolorem sequi doloremque ratione quasi explicabo repellendus sunt laboriosam amet praesentium! Consectetur consequatur quos eum quam similique pariatur praesentium saepe amet! Quam eos, et in assumenda ipsa saepe, omnis quae neque illum cupiditate accusantium? Optio quisquam provident debitis. Consequatur unde facilis tenetur, doloremque culpa, odio dolorum iusto magnam veritatis aspernatur, cumque vel. Iure officiis veritatis eos ullam? Possimus temporibus cupiditate eius aperiam? Nobis tempore reiciendis ipsa vitae rem earum ducimus vel magni nesciunt sed commodi, pariatur ipsam excepturi magnam quam ratione distinctio perferendis deserunt alias voluptatem consectetur explicabo. Molestias, quisquam nihil quos sapiente ducimus autem inventore eligendi id quasi, qui dolores aliquid adipisci numquam ab libero at aliquam harum sint, cumque distinctio blanditiis. Corporis, expedita! Nulla voluptates a aliquam, fugit voluptate adipisci, quisquam non eum temporibus atque cumque exercitationem iure eligendi blanditiis? Quisquam rerum iure consequatur saepe amet repellendus magni repellat sunt voluptatum dignissimos necessitatibus, quidem recusandae aut autem doloribus impedit quis? Aspernatur, ipsa dolorem. Modi inventore ratione consequuntur voluptate harum, asperiores impedit voluptatibus voluptatum optio? Asperiores facilis cumque consequatur autem, explicabo quae ducimus pariatur. Rem voluptatibus qui porro sit. Commodi, hic. Consequuntur odio recusandae veritatis suscipit eaque quisquam placeat libero dicta ipsam. Quod qui odio ad quis non, id recusandae debitis sint voluptatibus cum, vitae nobis neque. Nobis quasi explicabo nihil doloremque asperiores.</p>
   </footer>
 
   <div id="modalOverlay" class="modal-overlay hidden">
@@ -224,14 +219,14 @@
 
       modalOverlay.classList.remove("hidden");
       modalBox.classList.add("show");
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = "hidden"; // Disable background scrolling when modal is open
       status.textContent = "Modal is open. Background scrolling is disabled.";
     }
 
     function closeModal(message) {
       modalBox.classList.remove("show");
       modalOverlay.classList.add("hidden");
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = "auto"; // Re-enable background scrolling when modal is closed
       status.textContent = message;
     }
 
