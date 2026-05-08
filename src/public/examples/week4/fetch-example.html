@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fetch Example</title>
+  <style>
+    :root {
+      --bg: #f6f8fc;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #2563eb;
+      --border: #dbe3f0;
+      --ok: #0f766e;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 24px;
+      line-height: 1.5;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: var(--accent);
+      margin-top: 0;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 18px 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    pre {
+      margin: 0;
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+    }
+
+    code {
+      font-family: Consolas, Monaco, monospace;
+      font-size: 0.95rem;
+    }
+
+    .output {
+      margin-top: 12px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .result {
+      border: 1px solid var(--border);
+      background: #f9fbff;
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+
+    .label {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+    }
+
+    ul {
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Loading Local Data with Fetch</h1>
+
+    <section class="card">
+      <h2>1) Load a Local JSON File</h2>
+      <p>This example loads <code>./data/parks.json</code> using <code>fetch()</code> and <code>.then()</code>.</p>
+      <pre><code>fetch("./data/parks.json")
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  });</code></pre>
+
+      <div class="output" id="json-output"></div>
+    </section>
+
+    <section class="card">
+      <h2>2) Load a Local Text File</h2>
+      <p>This example loads <code>./data/message.txt</code> as plain text.</p>
+      <pre><code>fetch("./data/message.txt")
+  .then(response => response.text())
+  .then(text => {
+    console.log(text);
+  });</code></pre>
+
+      <div class="output" id="text-output"></div>
+    </section>
+
+    <section class="card">
+      <h2>3) View the File in the Network Tab</h2>
+      <ul>
+        <li>Open the page in your browser.</li>
+        <li>Open Developer Tools.</li>
+        <li>Select the <strong>Network</strong> tab.</li>
+        <li>Refresh the page.</li>
+        <li>Click <code>parks.json</code> to view the JSON response.</li>
+        <li>Click <code>message.txt</code> to view the text response.</li>
+        <li>Use the <strong>Response</strong> tab to see the file contents.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    const jsonOutput = document.querySelector("#json-output");
+    const textOutput = document.querySelector("#text-output");
+
+    // Fetch the local JSON file.
+    // The file path is relative to this HTML file.
+    fetch("./data/parks.json")
+      .then(response => {
+        // Convert the response into a JavaScript object.
+        return response.json();
+      })
+      .then(data => {
+        // Display the loaded JSON data in the page.
+        const parks = data.parks;
+
+        jsonOutput.innerHTML = `
+          <div class="result">
+            <span class="label">Loaded JSON Object</span>
+            <pre><code>${JSON.stringify(data, null, 2)}</code></pre>
+          </div>
+          <div class="result">
+            <span class="label">First Park Name</span>
+            ${parks[0].name}
+          </div>
+          <div class="result">
+            <span class="label">First Park State</span>
+            ${parks[0].state}
+          </div>
+          <div class="result">
+            <span class="label">Access Example</span>
+            <code>data.parks[0].name</code> → ${parks[0].name}
+          </div>
+        `;
+      });
+
+    // Fetch the local text file.
+    // Use .text() because this is not JSON.
+    fetch("./data/message.txt")
+      .then(response => {
+        // Convert the response into plain text.
+        return response.text();
+      })
+      .then(text => {
+        // Display the loaded text in the page.
+        textOutput.innerHTML = `
+          <div class="result">
+            <span class="label">Loaded Text</span>
+            ${text}
+          </div>
+        `;
+      });
+  </script>
+</body>
+</html>

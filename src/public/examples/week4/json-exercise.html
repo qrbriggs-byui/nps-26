@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSON Scavenger Hunt</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f8fc;
+        --card: #ffffff;
+        --text: #1f2937;
+        --muted: #6b7280;
+        --accent: #2563eb;
+        --border: #dbe3f0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        line-height: 1.5;
+        color: #222;
+        background: #fff;
+      }
+
+      main {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        margin-top: 0;
+        color: var(--accent);
+      }
+
+      .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 16px;
+        margin: 16px 0;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      }
+
+      ul,
+      ol {
+        margin-top: 0.5rem;
+      }
+
+      pre {
+        margin: 12px 0 0;
+        padding: 12px;
+        border-radius: 6px;
+        background: #f4f4f4;
+        overflow-x: auto;
+      }
+
+      code {
+        font-family: Consolas, Monaco, monospace;
+        font-size: 0.95rem;
+      }
+
+      .note {
+        color: #555;
+        margin-top: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>JSON Scavenger Hunt Exercise</h1>
+
+      <section class="card">
+        <p>Use the <code>person</code> object in the script below and log the requested values to the JavaScript console.</p>
+
+        <h2>How to open DevTools</h2>
+        <ol>
+          <li>Open this page in your browser.</li>
+          <li>Press <code>F12</code> or <code>Ctrl + Shift + I</code> on Windows.</li>
+          <li>Click the <strong>Console</strong> tab.</li>
+        </ol>
+
+        <h2>How to log values</h2>
+        <p>Type a <code>console.log()</code> statement in the dev tools console, then press Enter and check the Console.</p>
+        <pre><code>console.log(person.email);</code></pre>
+
+        <h2>Log the following:</h2>
+        <ul>
+          <li>Person's E-mail Address</li>
+          <li>Person's Full Name (First Middle and Last)</li>          
+          <li>Person's Job Department</li>
+          <li>Person's Job Skills - First one listed</li>
+          <li>Person's Favorite Color</li>
+          <li>Person's Graduation Year from BYU-Idaho</li>
+          <li>Person's Apartment Coordinates - Latitude</li>
+        </ul>
+
+        <p class="note">Use dot notation and array indexing to access the data.</p>
+      </section>
+    </main>
+
+    <script>
+      // Create a JavaScript object representing a person
+      const person = {
+        id: "p-1024",
+        name: {
+          first: "Alice",
+          middle: "Marie",
+          last: "Johnson",
+        },
+        age: 30,
+        birthDate: "1995-04-12",
+        isStudent: false,
+        email: "alice.johnson@example.com",
+        phoneNumbers: [
+          {
+            type: "mobile",
+            number: "555-123-4567",
+          },
+          {
+            type: "work",
+            number: "555-987-6543",
+          },
+        ],
+        address: {
+          street: "123 Main St",
+          apartment: "4B",
+          city: "New York",
+          state: "NY",
+          postalCode: "10001",
+          country: "USA",
+          coordinates: {
+            latitude: 40.7128,
+            longitude: -74.006,
+          },
+        },
+        job: {
+          title: "Software Developer",
+          department: "Engineering",
+          company: "Tech Solutions Inc.",
+          yearsEmployed: 5,
+          skills: ["JavaScript", "HTML", "CSS", "Node.js", "SQL"],
+        },
+        education: [
+          {
+            level: "Bachelor's",
+            field: "Computer Science",
+            institution: "BYU-Idaho",
+            graduationYear: 2018,
+          },
+        ],
+        hobbies: ["hiking", "reading", "photography"],
+        emergencyContact: {
+          name: "Michael Johnson",
+          relationship: "Brother",
+          phone: "555-222-3333",
+        },
+        preferences: {
+          favoriteColor: "blue",
+          newsletterSubscribed: true,
+          language: "English",
+          theme: "dark",
+        },
+      };
+
+      console.log(person);
+    </script>
+  </body>
+</html>

@@ -102,13 +102,9 @@
       width: min(500px, 100%);
       background: white;
       border-radius: 12px;
-      opacity: 0;
     }
 
-    .modal.show {
-      opacity: 1;
-    }
-
+  
     .modal-header,
     .modal-body,
     .modal-footer {
@@ -213,7 +209,7 @@
     const status = document.getElementById("status");
 
     function openModal() {
-      if (!modalOverlay.classList.contains("hidden")) {
+      if (!modalOverlay.classList.contains("hidden")) { // Modal is already open, do nothing
         return;
       }
 
@@ -249,7 +245,7 @@
     });
 
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && !modalOverlay.classList.contains("hidden")) {
+      if (event.key === "Escape" && !modalOverlay.classList.contains("hidden")) { // Only close if modal is open
         closeModal("Modal closed with the Escape key.");
       }
     });
