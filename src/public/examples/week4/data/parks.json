@@ -1,0 +1,16 @@
+{
+  "parks": [
+    {
+      "name": "Zion National Park",
+      "state": "Utah"
+    },
+    {
+      "name": "Yosemite National Park",
+      "state": "California"
+    },
+    {
+      "name": "Yellowstone National Park",
+      "state": "Wyoming"
+    }
+  ]
+}

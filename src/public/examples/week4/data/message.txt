@@ -1,0 +1,1 @@
+This is a plain text file loaded with fetch() and response.text().
