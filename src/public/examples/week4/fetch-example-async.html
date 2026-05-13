@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fetch Example</title>
+  <title>Fetch Example – Async/Await</title>
   <style>
     :root {
       --bg: #f6f8fc;
@@ -90,28 +90,28 @@
 </head>
 <body>
   <main>
-    <h1>Loading Local Data with Fetch</h1>
+    <h1>Loading Local Data with Fetch – Async/Await</h1>
 
     <section class="card">
       <h2>1) Load a Local JSON File</h2>
-      <p>This example loads <code>./data/parks.json</code> using <code>fetch()</code> and <code>.then()</code>.</p>
-      <pre><code>fetch("./data/parks.json")
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-  });</code></pre>
+      <p>This example loads <code>./data/parks.json</code> using <code>async/await</code>.</p>
+      <pre><code>async function loadJSON() {
+  const response = await fetch("./data/parks.json");
+  const data = await response.json();
+  console.log(data);
+}</code></pre>
 
       <div class="output" id="json-output"></div>
     </section>
 
     <section class="card">
       <h2>2) Load a Local Text File</h2>
-      <p>This example loads <code>./data/message.txt</code> as plain text.</p>
-      <pre><code>fetch("./data/message.txt")
-  .then(response => response.text())
-  .then(text => {
-    console.log(text);
-  });</code></pre>
+      <p>This example loads <code>./data/message.txt</code> as plain text using <code>async/await</code>.</p>
+      <pre><code>async function loadText() {
+  const response = await fetch("./data/message.txt");
+  const text = await response.text();
+  console.log(text);
+}</code></pre>
 
       <div class="output" id="text-output"></div>
     </section>
@@ -134,53 +134,57 @@
     const jsonOutput = document.querySelector("#json-output");
     const textOutput = document.querySelector("#text-output");
 
-    // Fetch the local JSON file.
-    // The file path is relative to this HTML file.
-    fetch("./data/parks.json")
-      .then(response => {
-        // Convert the response into a JavaScript object.
-        return response.json();
-      })
-      .then(data => {
-        // Display the loaded JSON data in the page.
-        const parks = data.parks;
+    // Async function to fetch the local JSON file.
+    async function loadJSON() {
+      // Await the fetch call — pauses until the response arrives.
+      const response = await fetch("./data/parks.json");
 
-        jsonOutput.innerHTML = `  
+      // Await the conversion of the response into a JavaScript object.
+      const data = await response.json();
+
+      // Display the loaded JSON data in the page.
+      const parks = data.parks;
+
+      jsonOutput.innerHTML = `
         <div class="result">
           <span class="label">Loaded JSON Object</span>
           <pre><code>${JSON.stringify(data, null, 2)}</code></pre>
-        </div>               
-          <div class="result">
-            <span class="label">First Park Name</span>
-            ${parks[0].name}
-          </div>
-          <div class="result">
-            <span class="label">First Park State</span>
-            ${parks[0].state}
-          </div>
-          <div class="result">
-            <span class="label">Access Example</span>
-            <code>data.parks[0].name</code> → ${parks[0].name}
-          </div>
-        `;
-      });
+        </div>
+        <div class="result">
+          <span class="label">First Park Name</span>
+          ${parks[0].name}
+        </div>
+        <div class="result">
+          <span class="label">First Park State</span>
+          ${parks[0].state}
+        </div>
+        <div class="result">
+          <span class="label">Access Example</span>
+          <code>data.parks[0].name</code> → ${parks[0].name}
+        </div>
+      `;
+    }
 
-    // Fetch the local text file.
-    // Use .text() because this is not JSON.
-    fetch("./data/message.txt")
-      .then(response => {
-        // Convert the response into plain text.
-        return response.text();
-      })
-      .then(text => {
-        // Display the loaded text in the page.
-        textOutput.innerHTML = `
-          <div class="result">
-            <span class="label">Loaded Text</span>
-            ${text}
-          </div>
-        `;
-      });
+    // Async function to fetch the local text file.
+    async function loadText() {
+      // Await the fetch call — pauses until the response arrives.
+      const response = await fetch("./data/message.txt");
+
+      // Await the conversion of the response into plain text.
+      const text = await response.text();
+
+      // Display the loaded text in the page.
+      textOutput.innerHTML = `
+        <div class="result">
+          <span class="label">Loaded Text</span>
+          ${text}
+        </div>
+      `;
+    }
+
+    // Call both async functions.
+    loadJSON();
+    loadText();
   </script>
 </body>
 </html>
