@@ -29,11 +29,11 @@ function renderParkInfoDetails(park) {
   directionsLink.href = park.directionsUrl;
   directionsLink.textContent = "Read more";
 
-  const primaryContact = park.contacts.phoneNumbers[0]; // Assuming the first contact and first phone number is the primary one
+  const primaryContact = park.contacts.phoneNumbers.find(phone => phone.type === "Voice");
   document.getElementById("info-contact").textContent =
     primaryContact.phoneNumber;
 
-  const physicalAddress = park.addresses[0]; // Assuming the first address is the physical one
+  const physicalAddress = park.addresses.find(address => address.type === "Physical");
   document.getElementById("info-address").textContent =
     `${physicalAddress.line1}, ${physicalAddress.city}, ${physicalAddress.stateCode} ${physicalAddress.postalCode}`;
 }
