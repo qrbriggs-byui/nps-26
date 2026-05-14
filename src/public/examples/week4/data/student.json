@@ -1,0 +1,10 @@
+{
+  "name": "Avery",
+  "age": 20,
+  "isStudent": true,
+  "gpa": 3.85,
+  "skills": ["HTML", "CSS", "JavaScript"],
+  "address": { "city": "Rexburg", "state": "Idaho" },
+  "middleName": null,
+  "super-power": "Invisibility"
+}

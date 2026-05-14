@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Week 4-1</h1>
+    <p>In this week, we will learn about JSON and how to use it in JavaScript.</p>
+    <div id="student-data"></div>
+</body>
+<script>
+
+function getStudent(){
+    fetch("student.json").then(getStudentData).then(displayStudentData)
+}
+
+function getStudentData(response){
+    return response.json()
+}
+
+function displayStudentData(data){
+    console.log(data)
+}
+
+function getStudentCompact(){
+    fetch("./data/student.json")
+    .then(response => response.json())
+    .then(data => console.log(data))
+}
+
+const studentData = document.getElementById("student-data")
+
+function displayStudentDataInHTML(data){
+   const display = `
+        <h3>${data.name}</h3>
+        <p>${data.address.city} , ${data.address.state}</p>
+        <p>${data.skills.join(",")}</p>
+        `
+    studentData.innerHTML = display
+}
+
+async function getStudentAsync(){
+    const response = await fetch("./data/student.json")
+    const data = await response.json()
+    displayStudentDataInHTML(data)
+}
+
+// getStudent()
+// getStudentCompact()
+getStudentAsync()
+
+</script>
+</html>
