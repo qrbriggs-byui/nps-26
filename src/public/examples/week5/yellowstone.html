@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yellowstone National Park</title>
+    <link rel="stylesheet" href="yellowstone.css" />
+  </head>
+  <body>
+    <div id="park"></div>
+  </body>
+  <script>
+    // Select the container where the park will be displayed
+    const container = document.querySelector("#park");
+
+    // Build the API URL for Yellowstone
+    const url = "../../data/yellowstone.json";
+
+    // Function to render park data into the page
+    // Uses map to create a gallery of images and join to combine them into a single string
+    function renderPark(park) {
+      const gallery = park.images
+        .map((img) => `<img src="${img.url}" alt="${img.altText}">`)
+        .join("");
+
+      container.innerHTML = `
+        <div class="park-card">
+          <h2>${park.fullName}</h2>
+          <div class="gallery">${gallery}</div>          
+          <p>${park.description}</p>
+        </div>
+      `;
+    }
+
+    // Using map and join to create a list of activities
+    function listActivities(park) {
+      let activities = document.createElement("ul");
+      const activityNames = park.activities.map((activity) => activity.name);
+      const activityText = activityNames.join("</li><li>");
+      activities.innerHTML = `<li>${activityText}</li>`;
+      container.append(activities);
+    }
+
+    // Using foreach to create a list of activities
+    function listActivitiesForEach(park) {
+      const activities = park.activities;
+      const list = document.createElement("ul");
+
+      activities.forEach((activity) => {
+        const li = document.createElement("li");
+        li.textContent = activity.name;
+        list.append(li);
+      });
+
+      container.append(list);
+    }
+
+    // Using filter to find the physical address
+    function showPhysicalAddress(park) {
+      const physicalAddresses = park.addresses.filter(
+        (address) => address.type === "Physical",
+      );
+      let address = document.createElement("p");
+
+      const addressText = physicalAddresses
+        .map((address) =>
+          [
+            address.line1,
+            address.line2,
+            address.city,
+            address.stateCode,
+            address.postalCode,
+          ]
+            .filter(Boolean)
+            .join("<br>"),
+        )
+        .join("<br><br>");
+
+      address.innerHTML = addressText;
+      container.append(address);
+    }
+
+    // Using FIND to find the first item in an array
+    function showFirstPhoneNumber(park) {
+      const voicePhone = park.contacts.phoneNumbers.find(
+        (phone) => phone.type === "Voice",
+      );
+      let phone = document.createElement("p");
+      phone.innerText = voicePhone.phoneNumber;
+      container.append(phone);
+    }
+
+    // Async function to fetch and display park data
+    async function getPark() {
+      // Show a loading message while data is being fetched
+      container.textContent = "Loading...";
+
+      try {
+        // Send request to the API and include the API key in the header
+        const response = await fetch(url);
+
+        // Check if the response was successful (status 200–299)
+        if (!response.ok) {
+          // Manually throw an error if something went wrong
+          throw new Error(`HTTP Error: ${response.status}`);
+        }
+
+        // Convert the response into JSON data
+        const data = await response.json();
+
+        // Make sure the expected data exists
+        if (!data.data || data.data.length === 0) {
+          throw new Error("No park data found.");
+        }
+
+        // Extract the first park from the array
+        const park = data.data[0];
+
+        // Render the park data to the page
+        renderPark(park);
+        listActivitiesForEach(park);
+        showPhysicalAddress(park);
+        showFirstPhoneNumber(park);
+      } catch (error) {
+        // Log the error for debugging
+        console.error(error);
+
+        // Show a user-friendly message on the page
+        container.textContent =
+          "Unable to load park data. Please try again later.";
+      }
+    }
+
+    // Call the function so it runs when the page loads
+    getPark();
+  </script>
+</html>
