@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20]
+        node-version: [24]
 
     steps:
       - name: Checkout
@@ -26,4 +26,4 @@ jobs:
         run: npm ci
 
       - name: Run ESLint
-        run: npx eslint src/js --ext .js
+        run: npx eslint src/js --ext .js --config eslint.config.mjs
