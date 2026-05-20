@@ -22,9 +22,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: npm
 
-      - name: Install dependencies
+      - name: Install dependencies        
         run: npm ci
-        run: npm install -D eslint @eslint/js globals eslint-plugin-import eslint-plugin-promise
 
       - name: Run ESLint
         run: npm run lint
