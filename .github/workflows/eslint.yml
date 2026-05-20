@@ -24,6 +24,7 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+        run: npm install -D eslint @eslint/js globals eslint-plugin-import eslint-plugin-promise
 
       - name: Run ESLint
-        run: npx eslint src/js --ext .js --config eslint.config.mjs
+        run: npm run lint
