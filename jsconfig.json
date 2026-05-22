@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "checkJs": true,
-    "strict": true,
+    "checkJs": true,    
     "module": "ESNext",
     "target": "ES2022"
   },
