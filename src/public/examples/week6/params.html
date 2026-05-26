@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Week 6 — URL Search Parameters</title>
+    <link rel="stylesheet" href="../styles.css" />
+</head>
+<body class="params-page">
+    <main>
+        <h1>Week 6 — URL Search Parameters</h1>
+        <p>
+            This page reads values from the URL query string using
+            <code>URLSearchParams</code>.
+        </p>
+
+        <p>
+            Try this URL:
+            <code>?name=Taylor&park=Yellowstone&days=3</code>
+        </p>
+
+        <section class="card result" aria-labelledby="parsed-heading">
+            <h2 id="parsed-heading">Parsed values</h2>
+            <p><strong>name:</strong> <span id="nameValue"></span></p>
+            <p><strong>park:</strong> <span id="parkValue"></span></p>
+            <p><strong>days:</strong> <span id="daysValue"></span></p>
+            <p><strong>raw query string:</strong> <code id="rawQuery"></code></p>
+        </section>
+
+        <section class="card" aria-labelledby="builder-heading">
+            <h2 id="builder-heading">Build a query string</h2>
+            <form id="paramsForm">
+                <label for="nameInput">Name</label>
+                <input id="nameInput" name="name" type="text" placeholder="Jordan" />
+
+                <label for="parkInput">Park</label>
+                <input id="parkInput" name="park" type="text" placeholder="Grand Teton" />
+
+                <label for="daysInput">Days</label>
+                <input id="daysInput" name="days" type="number" min="1" placeholder="2" />
+
+                <button type="submit">Update URL</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        // Read the current URL search parameters
+        const params = new URLSearchParams(window.location.search);
+
+        // Use defaults if a parameter is missing
+        const name = params.get("name") || "None";
+        const park = params.get("park") || "None Specified";
+        const days = params.get("days") || "1";
+
+        // Display parsed values
+        document.getElementById("nameValue").textContent = name;
+        document.getElementById("parkValue").textContent = park;
+        document.getElementById("daysValue").textContent = days;
+        document.getElementById("rawQuery").textContent = window.location.search || "(none)";
+
+        // Gather form inputs one component at a time
+        const nameInput = document.getElementById("nameInput");
+        const parkInput = document.getElementById("parkInput");
+        const daysInput = document.getElementById("daysInput");
+        const paramsForm = document.getElementById("paramsForm");
+
+        // Build and apply a new query string from the form
+        paramsForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            // Create a fresh query-parameter container for the new URL values
+            const nextParams = new URLSearchParams();
+
+            const nextName = nameInput.value.trim();
+            const nextPark = parkInput.value.trim();
+            const nextDays = daysInput.value.trim();
+
+            if (nextName) nextParams.set("name", nextName);
+            if (nextPark) nextParams.set("park", nextPark);
+            if (nextDays) nextParams.set("days", nextDays);
+
+            // Convert the URLSearchParams object into a query-string (example: "name=Ana&park=Zion&days=2")
+            const query = nextParams.toString();
+            const newUrl = query
+                ? `${window.location.pathname}?${query}`
+                : window.location.pathname;
+
+            // Navigate to the updated URL so the page reloads with the new search parameters
+            window.location.href = newUrl;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Week 6 — localStorage Example</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+        .local-storage-page { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+        .local-storage-page .card { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; margin-top: 1rem; }
+        .local-storage-page label { display: block; margin-top: .75rem; font-weight: 600; }
+        .local-storage-page input { width: 100%; max-width: 380px; padding: .5rem; margin-top: .25rem; }
+        .local-storage-page button { margin-top: .75rem; margin-right: .5rem; padding: .5rem .8rem; cursor: pointer; }
+        .local-storage-page ul { margin-top: .75rem; padding-left: 1.25rem; }
+        .local-storage-page code { background: #f5f5f5; padding: .1rem .35rem; border-radius: 4px; }
+    </style>
+</head>
+<body class="local-storage-page">
+    <main>
+        <h1>Week 6 — localStorage Example</h1>
+        <p>This example demonstrates <code>setItem</code>, <code>getItem</code>, <code>removeItem</code>, and storing arrays with JSON.</p>
+        <p>View the <code>localStorage</code> in your browser's developer tools under the "Application" tab.</p>
+        <section class="card">
+            <h2 id="simple-heading">Simple key/value storage</h2>
+
+            <label for="usernameInput">Username</label>
+            <input id="usernameInput" type="text" placeholder="Enter a name" />
+
+            <div>
+                <button id="saveNameBtn" type="button">Save Name</button>
+                <button id="loadNameBtn" type="button">Load Name</button>
+                <button id="removeNameBtn" type="button">Remove Name</button>
+            </div>
+
+            <p><strong>Loaded value:</strong> <span id="nameOutput">(none)</span></p>
+        </section>
+
+        <section class="card">
+            <h2 id="favorites-heading">Favorites (JSON array)</h2>
+            <p>Pattern: <strong>Get → Modify → Save → Re-render</strong></p>
+
+            <div>
+                <button type="button" data-park="yell" class="toggle-btn">Toggle Yellowstone (yell)</button>
+                <button type="button" data-park="zion" class="toggle-btn">Toggle Zion (zion)</button>
+                <button type="button" data-park="grte" class="toggle-btn">Toggle Grand Teton (grte)</button>
+            </div>
+
+            <button id="clearFavoritesBtn" type="button">Clear Favorites</button>
+
+            <h3>Current favorites</h3>
+            <ul id="favoritesList"></ul>
+        </section>
+        
+    </main>
+
+    <script>
+        const NAME_KEY = "username";
+        const FAVORITES_KEY = "favorites";
+
+        const usernameInput = document.getElementById("usernameInput");
+        const nameOutput = document.getElementById("nameOutput");
+        const favoritesList = document.getElementById("favoritesList");        
+
+        function getFavorites() {
+            const stored = localStorage.getItem(FAVORITES_KEY);
+            return stored ? JSON.parse(stored) : [];
+        }
+
+        function saveFavorites(favorites) {
+            localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+        }
+
+        function renderFavorites() {
+            const favorites = getFavorites();
+            favoritesList.innerHTML = "";
+
+            if (favorites.length === 0) {
+                const li = document.createElement("li");
+                li.textContent = "(no favorites saved)";
+                favoritesList.appendChild(li);
+            } else {
+                favorites.forEach(code => {
+                    const li = document.createElement("li");
+                    li.textContent = code;
+                    favoritesList.appendChild(li);
+                });
+            }           
+        }
+
+        function toggleFavorite(parkCode) {
+            const favorites = getFavorites();
+
+            if (favorites.includes(parkCode)) {
+                const updated = favorites.filter(code => code !== parkCode);
+                saveFavorites(updated);
+            } else {
+                favorites.push(parkCode);
+                saveFavorites(favorites);
+            }
+
+            renderFavorites();
+        }
+
+        document.getElementById("saveNameBtn").addEventListener("click", () => {
+            const value = usernameInput.value.trim();
+            if (value) {
+                localStorage.setItem(NAME_KEY, value);
+            }
+            renderFavorites();
+        });
+
+        document.getElementById("loadNameBtn").addEventListener("click", () => {
+            const value = localStorage.getItem(NAME_KEY);
+            nameOutput.textContent = value || "(none)";
+        });
+
+        document.getElementById("removeNameBtn").addEventListener("click", () => {
+            localStorage.removeItem(NAME_KEY);
+            nameOutput.textContent = "(none)";
+            renderFavorites();
+        });
+
+        document.querySelectorAll(".toggle-btn").forEach(btn => {
+            // Add a click handler to each park button.
+            btn.addEventListener("click", () => {
+                // btn.dataset.park reads the value from data-park (for example: "zion").
+                // That park code is passed to toggleFavorite(), which adds or removes it
+                // in localStorage, then re-renders the favorites list.
+                toggleFavorite(btn.dataset.park);
+            });
+        });
+
+        document.getElementById("clearFavoritesBtn").addEventListener("click", () => {
+            localStorage.removeItem(FAVORITES_KEY);
+            renderFavorites();
+        });
+
+        // Initial render
+        nameOutput.textContent = localStorage.getItem(NAME_KEY) || "(none)";
+        renderFavorites();
+    </script>
+</body>
+</html>
