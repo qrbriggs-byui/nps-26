@@ -2,6 +2,9 @@
   --header-color: #344e41;
   --accent-color: #a3b18a;
   --background-color: #dad7cd;
+  --motion-fast: 0.2s;
+  --motion-medium: 0.35s;
+  --motion-ease: ease;
 }
 
 body {
@@ -107,6 +110,7 @@ header nav {
 }
 
 #park-menu {
+  display: none;
   background-color: var(--accent-color);
   border: 1px solid black;
 }
@@ -286,6 +290,96 @@ footer {
   border: 1px solid #9ca59a;
   border-radius: 4px;
   background: #fff;
+  visibility: visible;
+  opacity: 1;
+  transition:
+    background-color var(--motion-fast) var(--motion-ease),
+    color var(--motion-fast) var(--motion-ease),
+    border-color var(--motion-fast) var(--motion-ease),
+    box-shadow var(--motion-fast) var(--motion-ease),
+    transform var(--motion-fast) var(--motion-ease),
+    opacity var(--motion-fast) var(--motion-ease);
+}
+
+/* Keep space in layout so button doesn't jump */
+#choose-park-select.is-hidden {
+  display: inline-block !important; /* override global .is-hidden */
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#park-info {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  background: #fff;
+}
+
+#park-info h2,
+#park-info h3 {
+  margin: 0 0 0.5rem;
+}
+
+#park-info p {
+  margin: 0.35rem 0;
+  line-height: 1.4;
+}
+
+#park-info ul {
+  margin: 0.25rem 0 0.75rem 1.1rem;
+  padding: 0;
+}
+
+#park-info li {
+  margin: 0.25rem 0;
+}
+
+#park-info a {
+  margin-left: 0.35rem;
+  text-decoration: underline;
+  word-break: break-word;
+}
+
+#park-info,
+#park-fees {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  background: #fff;
+}
+
+#park-info h2,
+#park-info h3,
+#park-fees h2,
+#park-fees h3 {
+  margin: 0 0 0.5rem;
+}
+
+#park-info p,
+#park-fees p {
+  margin: 0.35rem 0;
+  line-height: 1.4;
+}
+
+#park-info ul,
+#park-fees ul {
+  margin: 0.25rem 0 0.75rem 1.1rem;
+  padding: 0;
+}
+
+#park-info li,
+#park-fees li {
+  margin: 0.25rem 0;
+}
+
+#park-info a,
+#park-fees a {
+  margin-left: 0.35rem;
+  text-decoration: underline;
+  word-break: break-word;
 }
 
 #favorites-section {
@@ -294,6 +388,12 @@ footer {
   padding: 0.5rem 1rem 0.9rem;
   border-left: 1px solid black;
   border-right: 1px solid black;
+  position: absolute;
+  top: 120px;
+  width: min(960px, calc(100% - 2rem));
+  opacity: 0.7;
+  z-index: 5;
+  margin: 0 1rem;
 }
 
 #favorites-section a,
@@ -307,8 +407,12 @@ footer {
 }
 
 .favorites-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  list-style: none;
   margin: 0;
-  padding-left: 1rem;
+  padding: 0;  
 }
 
 .favorites-list li {
@@ -327,4 +431,145 @@ footer {
 
 .is-hidden {
   display: none !important;
+}
+
+/* ===== Keyframes ===== */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== 1) Choose park controls ===== */
+#choose-park-btn,
+#choose-park-select {
+  transition:
+    background-color var(--motion-fast) var(--motion-ease),
+    color var(--motion-fast) var(--motion-ease),
+    border-color var(--motion-fast) var(--motion-ease),
+    box-shadow var(--motion-fast) var(--motion-ease),
+    transform var(--motion-fast) var(--motion-ease);
+}
+
+#choose-park-btn:hover,
+#choose-park-btn:focus-visible,
+#choose-park-select:hover,
+#choose-park-select:focus-visible {
+  transform: translateY(-2px);
+}
+
+/* ===== 2) Header menu trigger + options ===== */
+#header-menu-trigger {
+  transition: transform var(--motion-fast) var(--motion-ease), opacity var(--motion-fast) var(--motion-ease);
+}
+
+#header-menu-trigger:hover,
+#header-menu-trigger:focus-visible {
+  transform: translateY(-2px);
+}
+
+#header-menu-options {
+  overflow: hidden;
+  max-height: 15rem;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    max-height var(--motion-medium) var(--motion-ease),
+    opacity var(--motion-medium) var(--motion-ease),
+    transform var(--motion-medium) var(--motion-ease);
+}
+
+#header-menu-options.is-hidden {
+  display: block !important; /* override .is-hidden for animation */
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+}
+
+/* ===== 3) Park menu item hover ===== */
+#park-menu li {
+  transition:
+    background-color var(--motion-fast) var(--motion-ease),
+    color var(--motion-fast) var(--motion-ease),
+    transform var(--motion-fast) var(--motion-ease);
+}
+
+#park-menu li:hover,
+#park-menu li:focus-visible {
+  transform: translateY(-2px);
+}
+
+/* ===== 4) Map modal fade + pop ===== */
+#map-modal {
+  opacity: 1;
+  transition: opacity var(--motion-medium) var(--motion-ease);
+}
+
+#map-modal.is-hidden {
+  display: flex !important; /* keep renderable so opacity can animate */
+  opacity: 0;
+  pointer-events: none;
+}
+
+#map-modal-content {
+  animation: popIn 0.28s var(--motion-ease);
+}
+
+/* ===== 5) Park info section + text blocks ===== */
+#park-info {
+  animation: fadeUp 0.45s var(--motion-ease);
+}
+
+#park-info p,
+#park-info li,
+#park-info span {
+  animation: fadeUp 0.5s var(--motion-ease);
+}
+
+/* ===== 6) Park fees show/hide ===== */
+#park-fees {
+  overflow: hidden;
+  max-height: 1500px;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    max-height var(--motion-medium) var(--motion-ease),
+    opacity var(--motion-medium) var(--motion-ease),
+    transform var(--motion-medium) var(--motion-ease);
+}
+
+#park-fees.is-hidden {
+  display: block !important; /* override .is-hidden for animation */
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
 }

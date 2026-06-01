@@ -1,0 +1,146 @@
+[
+  {
+    "title": "Back in Black",
+    "artist": "AC/DC",
+    "yearReleased": 1980,
+    "album": "Back in Black"
+  },
+  {
+    "title": "Another One Bites the Dust",
+    "artist": "Queen",
+    "yearReleased": 1980,
+    "album": "The Game"
+  },
+  {
+    "title": "Don't Stop Believin'",
+    "artist": "Journey",
+    "yearReleased": 1981,
+    "album": "Escape"
+  },
+  {
+    "title": "I Love Rock 'n Roll",
+    "artist": "Joan Jett & the Blackhearts",
+    "yearReleased": 1981,
+    "album": "I Love Rock 'n Roll"
+  },
+  {
+    "title": "Eye of the Tiger",
+    "artist": "Survivor",
+    "yearReleased": 1982,
+    "album": "Eye of the Tiger"
+  },
+  {
+    "title": "Every Breath You Take",
+    "artist": "The Police",
+    "yearReleased": 1983,
+    "album": "Synchronicity"
+  },
+  {
+    "title": "Jump",
+    "artist": "Van Halen",
+    "yearReleased": 1984,
+    "album": "1984"
+  },
+  {
+    "title": "Summer of '69",
+    "artist": "Bryan Adams",
+    "yearReleased": 1985,
+    "album": "Reckless"
+  },
+  {
+    "title": "Money for Nothing",
+    "artist": "Dire Straits",
+    "yearReleased": 1985,
+    "album": "Brothers in Arms"
+  },
+  {
+    "title": "Take On Me",
+    "artist": "a-ha",
+    "yearReleased": 1985,
+    "album": "Hunting High and Low"
+  },
+  {
+    "title": "Livin' on a Prayer",
+    "artist": "Bon Jovi",
+    "yearReleased": 1986,
+    "album": "Slippery When Wet"
+  },
+  {
+    "title": "You Give Love a Bad Name",
+    "artist": "Bon Jovi",
+    "yearReleased": 1986,
+    "album": "Slippery When Wet"
+  },
+  {
+    "title": "The Final Countdown",
+    "artist": "Europe",
+    "yearReleased": 1986,
+    "album": "The Final Countdown"
+  },
+  {
+    "title": "With or Without You",
+    "artist": "U2",
+    "yearReleased": 1987,
+    "album": "The Joshua Tree"
+  },
+  {
+    "title": "Sweet Child o' Mine",
+    "artist": "Guns N' Roses",
+    "yearReleased": 1987,
+    "album": "Appetite for Destruction"
+  },
+  {
+    "title": "Here I Go Again",
+    "artist": "Whitesnake",
+    "yearReleased": 1987,
+    "album": "Whitesnake"
+  },
+  {
+    "title": "Pour Some Sugar on Me",
+    "artist": "Def Leppard",
+    "yearReleased": 1988,
+    "album": "Hysteria"
+  },
+  {
+    "title": "Paradise City",
+    "artist": "Guns N' Roses",
+    "yearReleased": 1988,
+    "album": "Appetite for Destruction"
+  },
+  {
+    "title": "Free Fallin'",
+    "artist": "Tom Petty",
+    "yearReleased": 1989,
+    "album": "Full Moon Fever"
+  },
+  {
+    "title": "Smells Like Teen Spirit",
+    "artist": "Nirvana",
+    "yearReleased": 1991,
+    "album": "Nevermind"
+  },
+  {
+    "title": "Enter Sandman",
+    "artist": "Metallica",
+    "yearReleased": 1991,
+    "album": "Metallica"
+  },
+  {
+    "title": "Losing My Religion",
+    "artist": "R.E.M.",
+    "yearReleased": 1991,
+    "album": "Out of Time"
+  },
+  {
+    "title": "Under the Bridge",
+    "artist": "Red Hot Chili Peppers",
+    "yearReleased": 1991,
+    "album": "Blood Sugar Sex Magik"
+  },
+  {
+    "title": "Creep",
+    "artist": "Radiohead",
+    "yearReleased": 1992,
+    "album": "Pablo Honey"
+  }
+]
