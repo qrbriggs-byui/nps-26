@@ -11,6 +11,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
 
     <link rel="stylesheet" href="styles.css" />
+
+    <style>
+        .examples-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem 2rem;
+            padding-left: 1.25rem;
+        }
+
+        .examples-list li {
+            margin: 0;
+        }
+
+        @media (max-width: 700px) {
+            .examples-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <main>
@@ -21,22 +40,23 @@
 
         <section class="content" aria-labelledby="examples-heading">
             <h2 id="examples-heading">Available Examples</h2>
-            <ul>
+            <ul class="examples-list">
                 <li><a href="week2/events.html">Week 2 — Events</a></li>
                 <li><a href="week2/show-hide.html">Week 2 — Showing and Hiding</a></li>
                 <li><a href="week3/branching.html">Week 3 — Branching Logic in JavaScript</a></li>
                 <li><a href="week3/modals.html">Week 3 — Modals</a></li>
                 <li><a href="week4/json-example.html">Week 4 — JSON Example</a></li>
                 <li><a href="week4/json-exercise.html">Week 4 — JSON Scavenger Hunt</a></li>
-                <li><a href="week4/fetch-example.html">Week 4 — Fetch Example</a></li>                
-                <li><a href="week4/fetch-example-async.html">Week 4 — Fetch Example (Async/Await)</a></li>       
-                <li><a href="/key-test.html">Week 5 — API Key Test</a></li>         
-                <li><a href="week5/yellowstone.html">Week 5 — Yellowstone National Park (JavaScript Array Methods)</a></li>                
+                <li><a href="week4/fetch-example.html">Week 4 — Fetch Example</a></li>
+                <li><a href="week4/fetch-example-async.html">Week 4 — Fetch Example (Async/Await)</a></li>
+                <li><a href="/key-test.html">Week 5 — API Key Test</a></li>
+                <li><a href="week5/yellowstone.html">Week 5 — Yellowstone National Park (JavaScript Array Methods)</a></li>
                 <li><a href="week6/params.html">Week 6 — URL Search Parameters</a></li>
                 <li><a href="week6/local-storage.html">Week 6 — localStorage Example</a></li>
                 <li><a href="week6/favorite-tunes.html">Week 6 — Favorite Tunes In-Class Exercise</a></li>
                 <li><a href="week7/favorite-tunes.html">Week 7 — Favorite Tunes ES Modules Exercise</a></li>
                 <li><a href="week7/weather.html">Week 7 — Weather In-Class Example</a></li>
+                <li><a href="week7/code-safety.html">Week 7 — Code Safety Demo</a></li>
             </ul>
         </section>
     </main>
