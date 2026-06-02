@@ -1,0 +1,100 @@
+:root {
+  --night: #0f1020;
+  --charcoal: #1e1f3d;
+  --electric: #00f5d4;
+  --hot-pink: #ff3d9b;
+  --sunburst: #ffc857;
+  --card-border: #2f3164;
+  --text: #f5f6ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 20% 10%, #2a2b58 0, transparent 40%),
+    radial-gradient(circle at 85% 90%, #571a48 0, transparent 32%),
+    linear-gradient(165deg, #070814 0%, #12142b 45%, #201432 100%);
+}
+
+.page {
+  width: min(1100px, 94vw);
+  margin: 0 auto;
+  padding: 2.25rem 0 3rem;
+}
+
+.hero,
+.panel {
+  border: 2px solid var(--card-border);
+  border-radius: 16px;
+  background: linear-gradient(145deg, #191a33, #111227);
+  box-shadow: 0 0 18px rgba(0, 245, 212, 0.08);
+  padding: 1.25rem;
+}
+
+.hero {
+  margin-bottom: 1rem;
+}
+
+.hero h1,
+.panel h2 {
+  margin-top: 0;
+  color: var(--sunburst);
+  text-shadow: 0 0 12px rgba(255, 200, 87, 0.45);
+}
+
+.hero p {
+  color: #cdd1ff;
+  max-width: 60ch;
+}
+
+.status {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  color: var(--hot-pink);
+  min-height: 1.2em;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  width: 100%;
+  border: 2px solid var(--card-border);
+  border-radius: 14px;
+  background: linear-gradient(145deg, #191a33, #111227);
+  color: var(--text);
+  padding: 1rem;
+  box-shadow: none;
+}
+
+.card h3 {
+  margin: 0 0 0.5rem;
+  color: #ffffff;
+}
+
+.card p {
+  margin: 0.35rem 0;
+  color: #cbd0ff;
+}
+
+.card .meta {
+  color: #cbd0ff;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 0.9rem;
+  }
+}
