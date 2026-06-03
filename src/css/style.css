@@ -42,6 +42,14 @@ header nav {
 }
 
 #header-menu-options {
+  overflow: hidden;
+  max-height: 15rem;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    max-height var(--motion-medium) var(--motion-ease),
+    opacity var(--motion-medium) var(--motion-ease),
+    transform var(--motion-medium) var(--motion-ease);
   position: absolute;
   top: 100%;
   right: 0;
@@ -488,6 +496,7 @@ footer {
 
 /* ===== 2) Header menu trigger + options ===== */
 #header-menu-trigger {
+  transition: transform var(--motion-fast) var(--motion-ease), opacity var(--motion-fast) var(--motion-ease);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -512,6 +521,7 @@ footer {
 }
 
 #header-menu-trigger:focus-visible {
+  transform: translateY(-2px);
   outline: 3px solid #1e90ff;
   outline-offset: 2px;
 }
