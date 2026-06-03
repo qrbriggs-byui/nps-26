@@ -1,5 +1,26 @@
 import { readFavorites, removeFavorite } from "./storage.js";
 
+const PARK_IMAGE_BASE_PATH = "/images/parks";
+const PARK_IMAGE_FALLBACK = `${PARK_IMAGE_BASE_PATH}/placeholder.jpg`;
+
+function setParkImage(park, parkImageEl) {
+  if (!parkImageEl) return;
+
+  const parkCode = (park?.parkCode ?? "").toLowerCase().trim();
+  const localImage = parkCode ? `${PARK_IMAGE_BASE_PATH}/${parkCode}.jpg` : PARK_IMAGE_FALLBACK;
+
+  parkImageEl.onerror = () => {
+    parkImageEl.onerror = null; // prevent loop if placeholder is missing
+    parkImageEl.src = PARK_IMAGE_FALLBACK;
+  };
+
+  parkImageEl.src = localImage;
+  parkImageEl.alt =
+    park?.fullName || park?.name
+      ? `${park.fullName || park.name} landscape`
+      : "National park image";
+}
+
 export function renderParkData(park) {
   if (!park) return;
 
@@ -12,10 +33,7 @@ export function renderParkData(park) {
   parkType.textContent = park.designation;
   parkStates.textContent = park.states;
 
-  if (park.images?.length) {
-    parkImage.src = park.images[0].url;
-    parkImage.alt = park.images[0].altText || park.images[0].title;
-  }
+  setParkImage(park, parkImage);
 
   document.getElementById("info-description").textContent = park.description ?? "";
   document.getElementById("info-weather").textContent = park.weatherInfo ?? "";
@@ -96,6 +114,12 @@ function resolveMenuIdFromClickTarget(target) {
   return li?.dataset?.menuId?.trim()?.toLowerCase() ?? "";
 }
 
+
+function setMenuState(isOpen, menuTrigger, menuOptions) {
+  menuTrigger.setAttribute("aria-expanded", String(isOpen));
+  menuOptions.setAttribute("aria-hidden", String(!isOpen));  
+}
+
 export function wireSectionMenus() {
   const menuTrigger = document.querySelector("#header-menu-trigger");
   const menuOptions = document.querySelector("#header-menu-options");
@@ -105,6 +129,9 @@ export function wireSectionMenus() {
   if (menuTrigger && menuOptions) {
     menuTrigger.addEventListener("click", () => {
       menuOptions.classList.toggle("is-hidden");
+      const isOpen = menuOptions.classList.contains("is-hidden");
+      setMenuState(!isOpen, menuTrigger, menuOptions);
+
     });
 
     menuOptions.addEventListener("click", (event) => {
