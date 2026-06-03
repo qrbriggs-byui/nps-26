@@ -22,6 +22,21 @@ function buildParkUrl(parkCode) {
   return `${window.location.pathname}?park=${parkCode}`;
 }
 
+const menuTrigger = document.querySelector("#header-menu-trigger");
+const menuOptions = document.querySelector("#header-menu-options");
+
+function setMenuState(isOpen) {
+  menuTrigger.setAttribute("aria-expanded", String(isOpen));
+  menuOptions.setAttribute("aria-hidden", String(!isOpen));
+
+  menuOptions.classList.toggle("is-hidden", !isOpen);
+}
+
+menuTrigger.addEventListener("click", () => {
+  const isOpen = menuTrigger.getAttribute("aria-expanded") === "true";
+  setMenuState(!isOpen);
+});
+
 async function init() {
   const activeParkCode = getParkCodeFromQuery();
 
