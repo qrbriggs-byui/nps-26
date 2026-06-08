@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transitions and Animations</title>
+    <style>
+        #demo1, #demo2, #demo3{
+            width: 800px;
+            border: 3px solid black;
+            display: flex;
+            justify-content: center;
+        }
+
+        #box1{
+            height: 200px;
+            width: 200px;
+            background-color: red;
+            transition: background-color 0.3s ease;
+        }
+        #box1:hover{
+            background-color: blue;
+        }
+        #box2{
+            height: 200px;
+            width: 200px;
+            border-radius: 20px;
+            background-color: red;
+        }
+        #box2:hover{
+            background-color: blue;
+            animation: red-to-blue 4s linear;
+        }
+        @keyframes red-to-blue{
+            0%{
+                background-color: red;
+            }
+            25%{
+                background-color: darkred;
+            }
+            50%{
+                background-color: black;
+            }
+            75%{
+                background-color: darkblue;
+            }
+            100%{
+                background-color: blue;
+            }
+        }
+        #box3{
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+        #box3:hover{
+            transform: rotate(360deg);
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Demo 1</h1>
+    <div id="demo1">
+        <div id="box1"></div>
+    </div>
+    <h1>Demo 2</h1>
+    <div id="demo2">
+        <div id="box2"></div>
+    </div>
+    <h1>Demo 3</h1>
+    <div id="demo3">
+        <div id="box3">
+            <img src="https://placecats.com/200/200" alt="meow">
+        </div>
+    </div>
+</body>
+</html>
