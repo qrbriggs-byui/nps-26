@@ -63,8 +63,8 @@ header p {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.btn-transition:hover,
-.btn-transition:focus-visible {
+.btn-transition:hover
+{
   background-color: var(--accent-dark);
   transform: translateY(-5px);
 }
@@ -75,12 +75,12 @@ header p {
   border-radius: 10px;
   padding: 0.75rem 1rem;
   min-width: 170px;
-  transition: transform 0.5s ease, background 0.5s ease, border 0.5s ease;
+  transition: transform 0.1s ease, background 0.5s ease, border 0.1s ease;
 }
 
 .card-transition:hover,
 .card-transition:focus-visible {
-  transform: scale(1.1);
+  transform: scale(1.05);
   background: var(--accent);
   border: 0;
 }
@@ -98,11 +98,11 @@ header p {
 @keyframes popIn {
   0% {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.8);
   }
   50% {
     opacity: 0.5;
-    transform: scale(1.05);
+    transform: scale(1.1);
   }
   100% {
     opacity: 1;
