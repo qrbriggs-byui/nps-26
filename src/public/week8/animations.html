@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Week 8 | CSS Transitions and Animations</title>
+    <link rel="stylesheet" href="./animations.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Transitions vs Animations</h1>
+      <p>Examples based on Reading 8-1</p>
+    </header>
+
+    <main class="container">
+      <section class="panel">
+        <h2>1) CSS Transitions</h2>
+        <p>
+          Transitions happen when a property changes (hover/focus/class change).
+        </p>
+
+        <div class="demo-row">
+          <button class="btn-transition">Hover Me</button>
+          <div class="card-transition" tabindex="0">
+            Hover this card
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>2) CSS Animations (Keyframes)</h2>
+        <p>
+          Animations can run automatically or be triggered with JavaScript.
+        </p>
+
+        <div class="demo-row">
+          <div id="fadeCard" class="card-animation">Fade In Card</div>
+          <button id="replayFade">Replay Fade</button>
+        </div>
+
+        <div class="demo-row">
+          <div id="popBox" class="pop-box">Pop In Box</div>
+          <button id="replayPop">Replay Pop</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>3) Transition Easing Comparison</h2>
+        <p>
+          Hover the demo area to move each box. Each one uses a different
+          <code>transition-timing-function</code>.
+        </p>
+
+        <div class="easing-demo" tabindex="0" aria-label="Easing transition demo">
+          <div class="easing-row">
+            <span class="easing-label">linear</span>
+            <div class="easing-track">
+              <div class="easing-box linear"></div>
+            </div>
+          </div>
+
+          <div class="easing-row">
+            <span class="easing-label">ease</span>
+            <div class="easing-track">
+              <div class="easing-box ease"></div>
+            </div>
+          </div>
+
+          <div class="easing-row">
+            <span class="easing-label">ease-in-out</span>
+            <div class="easing-track">
+              <div class="easing-box ease-in-out"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./animations.js"></script>
+  </body>
+</html>
