@@ -10,6 +10,7 @@ import {
   renderFavorites,
   renderParkSelectorUI,
 } from "./render.js";
+import { initFeedback } from './feedback.js';
 
 const DEFAULT_PARK_CODE = "yell";
 
@@ -45,3 +46,4 @@ async function init() {
 }
 
 init();
+initFeedback();

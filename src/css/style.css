@@ -14,6 +14,10 @@ body {
   margin: 0;
 }
 
+body.no-scroll {
+  overflow: hidden;
+}
+
 #content {
   max-width: 1024px;
   margin: 0 auto;
@@ -126,6 +130,123 @@ footer {
   background-color: var(--header-color);
   color: white;
   border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+}
+
+footer a,
+#feedback-modal button,
+.feedback-submit-btn {
+  border: 0;
+  border-radius: 0.5rem;
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid white;
+}
+
+#footer-feedback-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.1rem;
+  text-decoration: none;
+  background: var(--header-color);
+  color: #fff;
+  font-weight: 700;
+  transition:
+    background-color var(--motion-fast) var(--motion-ease),
+    transform var(--motion-fast) var(--motion-ease);
+}
+
+#footer-feedback-link:hover,
+#footer-feedback-link:focus-visible {
+  background: #456857;  
+  transform: scale(1.05);
+}
+
+#feedback-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+#feedback-modal-content {
+  position: relative;
+  width: min(600px, 35rem);
+  max-height: 90vh;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: #fff;
+  color: #111;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.25);
+}
+
+#feedback-modal-close,
+#feedback-thanks-close {
+  padding: 0.6rem 0.9rem;
+  background: var(--header-color);
+  color: #fff;
+  font-weight: 700;
+}
+
+#feedback-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+#feedback-form,
+#feedback-thanks {
+  display: grid;
+  gap: 1rem;
+}
+
+#feedback-form label {
+  font-weight: 700;
+}
+
+#feedback-form input,
+#feedback-form textarea {
+  width: 96%;
+  padding: 0.9rem 1rem;
+  border: 1px solid #bbb;
+  border-radius: 0.6rem;
+  font: inherit;
+}
+
+#feedback-form textarea {
+  resize: vertical;
+  min-height: 10rem;
+}
+
+.feedback-submit-btn {
+  width: 100%;
+  padding: 1rem;
+  background: var(--header-color);
+  color: #fff;
+  font-weight: 700;
+  transition:
+    background-color var(--motion-fast) var(--motion-ease);    
+}
+
+.feedback-submit-btn:hover,
+.feedback-submit-btn:focus-visible,
+#feedback-modal-close:hover,
+#feedback-modal-close:focus-visible,
+#feedback-thanks-close:hover,
+#feedback-thanks-close:focus-visible {
+  background: #456857;  
+}
+
+.form-error {
+  min-height: 1.25rem;
+  color: #b00020;
+  font-weight: 700;
+  margin: 0;
 }
 
 .is-hidden {
