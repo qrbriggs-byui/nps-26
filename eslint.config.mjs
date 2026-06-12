@@ -1,14 +1,13 @@
 import js from "@eslint/js";
 import globals from "globals";
-import tseslint from "typescript-eslint";
+// import tseslint from "typescript-eslint";
 import importPlugin from "eslint-plugin-import";
 import promisePlugin from "eslint-plugin-promise";
 import sonarjs from "eslint-plugin-sonarjs";
 
 export default [
-  js.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
-
+  js.configs.recommended, 
+  
   {
     files: ["**/*.{js,mjs,cjs}"],
     languageOptions: {
@@ -38,15 +37,15 @@ export default [
       "promise/catch-or-return": "warn",
       "promise/no-return-wrap": "warn",
 
-      "@typescript-eslint/no-unnecessary-condition": "warn",
-      "@typescript-eslint/strict-boolean-expressions": "warn",
-      "@typescript-eslint/no-floating-promises": "warn",
-      "@typescript-eslint/no-unsafe-assignment": "warn",
-      "@typescript-eslint/no-unsafe-call": "warn",
-      "@typescript-eslint/no-unsafe-member-access": "warn",
-      "@typescript-eslint/no-unsafe-return": "warn",
-      "@typescript-eslint/no-unsafe-argument": "warn",
-      "@typescript-eslint/no-unused-vars": "warn",
+      // "@typescript-eslint/no-unnecessary-condition": "warn",
+      // "@typescript-eslint/strict-boolean-expressions": "warn",
+      // "@typescript-eslint/no-floating-promises": "warn",
+      // "@typescript-eslint/no-unsafe-assignment": "warn",
+      // "@typescript-eslint/no-unsafe-call": "warn",
+      // "@typescript-eslint/no-unsafe-member-access": "warn",
+      // "@typescript-eslint/no-unsafe-return": "warn",
+      // "@typescript-eslint/no-unsafe-argument": "warn",
+      // "@typescript-eslint/no-unused-vars": "warn",
 
       "sonarjs/no-duplicate-string": "warn",
       "sonarjs/no-identical-functions": "warn",

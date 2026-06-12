@@ -63,7 +63,7 @@ header p {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.btn-transition:hover
+.btn-transition:hover, .btn-transition:focus-visible
 {
   background-color: var(--accent-dark);
   transform: translateY(-5px);
@@ -136,7 +136,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+button:hover, button:focus-visible {
   background: #4b5563;
 }
 
