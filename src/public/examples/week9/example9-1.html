@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0" />
+    <title>WCAG Example</title>
+    <style>
+      .articles {
+        background-color: navy;
+        color: white;
+        font-size: 1.5rem;
+      }
+      .articles * {
+        margin: 1rem;
+      }
+      .wolf-modal-overlay {
+        position: fixed;
+        top: 0;
+        height: 100vh;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: grid;
+        place-items: center;
+      }
+      #wolf-modal {
+        background-color: white;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        text-align: center;
+      }
+      #wolf-modal button {
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+        background-color: navy;
+        color: white;
+        border: none;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        font-size: 1.3rem;
+      }
+      .hidden{
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="articles" aria-labelledby="heading1" aria-describedby="description1">
+        <h2 id="heading1">Wolves of the Yellowstone</h2>
+        <p id="description1">Wolves are very important to the Yellowstone Park ecosystem.</p>
+        <button id="show-dialog">Click here to see a wolf.</button>
+      </section>
+      <div class="wolf-modal-overlay hidden">
+        <div id="wolf-modal" role="dialog" aria-modal="true" aria-hidden="true">
+          <div>
+            <img
+              src="https://www.nps.gov/npgallery/GetAsset/cebbfa91-94e3-4e62-bf1d-1dca050c5d5f/proxy/hires?"
+              height="300"
+              alt="A close up picture of a wolf in the snow at Yellowstone."
+            />
+          </div>
+          <button id="close-dialog">Close</button>
+        </div>
+      </div>
+    </main>    
+  </body>
+  <script>
+    let showbutton = document.getElementById("show-dialog")
+    let closebutton = document.getElementById("close-dialog")
+    let wolfdialog = document.getElementById("wolf-modal")
+
+    showbutton.addEventListener("click", () => {
+        let overlay = document.querySelector(".wolf-modal-overlay")
+        overlay.classList.remove("hidden")
+        wolfdialog.setAttribute("aria-hidden", "false")
+    })
+
+    closebutton.addEventListener("click", () => {
+        let overlay = document.querySelector(".wolf-modal-overlay")
+        overlay.classList.add("hidden")
+        wolfdialog.setAttribute("aria-hidden", "true")
+    })
+  </script>
+</html>
