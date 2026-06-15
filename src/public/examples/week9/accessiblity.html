@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>POUR Principles and ARIA Dialog Example</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1f2937;
+      --accent: #0b5fff;
+      --accent-dark: #083ea7;
+      --surface: #f3f4f6;
+      --border: #d1d5db;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -3rem;
+      background: var(--accent);
+      color: white;
+      padding: 0.75rem 1rem;
+      text-decoration: none;
+      border-radius: 0.5rem;
+      z-index: 1000;
+    }
+
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    header, main, footer {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    h1, h2 {
+      line-height: 1.2;
+    }
+
+    .intro,
+    .principle,
+    .dialog-demo {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .principles {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .demo-image {
+      display: block;
+      max-width: 100%;
+      border-radius: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .field {
+      margin-top: 0.75rem;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.35rem;
+    }
+
+    input, button {
+      font: inherit;
+    }
+
+    input {
+      width: 100%;
+      max-width: 22rem;
+      padding: 0.65rem;
+      border: 1px solid #6b7280;
+      border-radius: 0.5rem;
+    }
+
+    button {
+      padding: 0.7rem 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      background: var(--accent);
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover,
+    button:focus-visible {
+      background: var(--accent-dark);
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible {
+      outline: 3px solid #f59e0b;
+      outline-offset: 3px;
+    }
+
+    .status {
+      margin-top: 0.75rem;
+      font-weight: bold;
+    }
+
+    .overlay[hidden] {
+      display: none;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+    }
+
+    .dialog {
+      width: min(100%, 32rem);
+      background: white;
+      color: var(--text);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--border);
+    }
+
+    .dialog-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .secondary {
+      background: #4b5563;
+    }
+
+    .secondary:hover,
+    .secondary:focus-visible {
+      background: #374151;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .cat-overlay {
+        position: absolute;
+        left: 1rem;
+        bottom: 1rem;
+      margin-top: 0.5rem;
+      font-style: italic;
+      color: white;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .principle:first-of-type {
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header>
+    <h1>Accessible Design Example</h1>
+    <p class="intro">
+      This page gives a simple example of the <strong>POUR</strong> principles from
+      <strong>WCAG 2.2</strong> and shows how ARIA state can be updated on a basic dialog box.
+    </p>
+  </header>
+
+  <main id="main-content">
+    <section aria-labelledby="pour-heading">
+      <h2 id="pour-heading">POUR Principles</h2>
+
+      <div class="principles">
+        <article class="principle" aria-labelledby="perceivable-heading">
+          <h3 id="perceivable-heading">Perceivable</h3>
+          <p>
+            Content should be available to more than one sense. This example uses real text,
+            strong color contrast, and descriptive alternative text.
+          </p>
+          <img
+            class="demo-image"
+            src="https://www.placecats.com/600/300"
+            alt="A cute cat looking at the camera"
+          />
+          <p class="cat-overlay">This is a cute cat looking at the camera.</p>
+        </article>
+
+        <article class="principle" aria-labelledby="operable-heading">
+          <h3 id="operable-heading">Operable</h3>
+          <p>
+            Users should be able to interact with the page using a keyboard. Try the skip link,
+            tab through the controls, and use <kbd>Escape</kbd> to close the dialog.
+          </p>
+          <p>
+            <a href="#dialog-demo">Jump to the dialog example</a>
+          </p>
+        </article>
+
+        <article class="principle" aria-labelledby="understandable-heading">
+          <h3 id="understandable-heading">Understandable</h3>
+          <p>
+            Content and controls should be clear. This form field has a visible label and plain instructions.
+          </p>
+          <div class="field">
+            <label for="email">Email address</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              placeholder="name@example.com"
+            />
+          </div>
+        </article>
+
+        <article class="principle" aria-labelledby="robust-heading">
+          <h3 id="robust-heading">Robust</h3>
+          <p>
+            Code should work well with assistive technology. This page uses landmarks, headings,
+            labels, and ARIA attributes that update when the dialog opens and closes.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="dialog-demo" class="dialog-demo" aria-labelledby="dialog-demo-heading">
+      <h2 id="dialog-demo-heading">ARIA Dialog State Example</h2>
+      <p>
+        The button below updates its <code>aria-expanded</code> value, and the dialog updates
+        its <code>aria-hidden</code> state when opened or closed.
+      </p>
+
+      <button
+        id="openDialogBtn"
+        type="button"
+        aria-controls="demoDialog"
+        aria-expanded="false"
+      >
+        Open dialog
+      </button>
+
+      <p class="status" id="dialogStatus" aria-live="polite">
+        Dialog is closed.
+      </p>
+    </section>
+  </main>
+
+  <div id="dialogOverlay" class="overlay" hidden>
+    <div
+      id="demoDialog"
+      class="dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="dialogTitle"
+      aria-describedby="dialogDescription"
+      aria-hidden="true"
+      tabindex="-1"
+    >
+      <h2 id="dialogTitle">Simple accessible dialog</h2>
+      <p id="dialogDescription">
+        This dialog updates ARIA state when it opens and closes. Focus moves into the dialog,
+        and returns to the button when the dialog closes.
+      </p>
+
+      <div class="dialog-actions">
+        <button id="confirmBtn" type="button">Confirm</button>
+        <button id="closeDialogBtn" type="button" class="secondary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p><small>Example page for Week 9 accessibility practice.</small></p>
+  </footer>
+
+  <script>
+    const openDialogBtn = document.getElementById('openDialogBtn');
+    const closeDialogBtn = document.getElementById('closeDialogBtn');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const dialogOverlay = document.getElementById('dialogOverlay');
+    const demoDialog = document.getElementById('demoDialog');
+    const dialogStatus = document.getElementById('dialogStatus');
+
+    let lastFocusedElement = null;
+
+    demoDialog.inert = true;
+
+    function openDialog() {
+      lastFocusedElement = document.activeElement;
+
+      dialogOverlay.hidden = false;
+      demoDialog.inert = false;
+      demoDialog.setAttribute('aria-hidden', 'false');
+      openDialogBtn.setAttribute('aria-expanded', 'true');
+      dialogStatus.textContent = 'Dialog is open.';
+
+      closeDialogBtn.focus();
+    }
+
+    function closeDialog() {
+      const returnFocusTo = lastFocusedElement || openDialogBtn;
+
+      returnFocusTo.focus();
+
+      requestAnimationFrame(() => {
+        dialogOverlay.hidden = true;
+        demoDialog.inert = true;
+        demoDialog.setAttribute('aria-hidden', 'true');
+        openDialogBtn.setAttribute('aria-expanded', 'false');
+        dialogStatus.textContent = 'Dialog is closed.';
+      });
+    }
+
+    openDialogBtn.addEventListener('click', openDialog);
+    closeDialogBtn.addEventListener('click', closeDialog);
+    confirmBtn.addEventListener('click', closeDialog);
+
+    dialogOverlay.addEventListener('click', (event) => {
+      if (event.target === dialogOverlay) {
+        closeDialog();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !dialogOverlay.hidden) {
+        closeDialog();
+      }
+    });
+  </script>
+</body>
+</html>
