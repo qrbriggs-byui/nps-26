@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Week 9 — Responsive Images with srcset</title>
+    <style>
+      body {
+        margin: 0;
+        font-family:
+          Roboto,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          sans-serif;
+        background: #0b1120;
+        color: #e5e7eb;
+        line-height: 1.5;
+      }
+
+      main {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 1rem;
+      }
+
+      .panel {
+        background: #111827;
+        border: 1px solid #1f2937;
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      h1,
+      h2 {
+        margin-top: 0;
+      }
+      p,
+      li {
+        color: #94a3b8;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        display: block;
+      }
+
+      .code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.9rem;
+        color: #67e8f9;
+      }
+
+      #chosen {
+        color: #22d3ee;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="panel">
+        <h1>
+          Week 9 — Image Optimization with <span class="code">srcset</span> +
+          <span class="code">sizes</span>
+        </h1>
+        <p>
+          Resize the browser and watch the selected image candidate change in
+          DevTools (Network tab).
+        </p>
+        <ul>
+          <li><span class="code">srcset</span>: available file widths</li>
+          <li>
+            <span class="code">sizes</span>: expected display width in the
+            layout
+          </li>
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h2>Single Content Image</h2>
+        <!--
+          srcset gives the browser multiple width options (480w, 640w, etc.).
+          sizes tells the browser how wide the image will render in CSS/layout.
+          The browser combines these + device pixel ratio + network conditions
+          to choose one candidate (accessible via img.currentSrc).
+        -->
+        <img
+          id="hero"
+          src="https://picsum.photos/id/1015/640/360"
+          srcset="
+            https://picsum.photos/id/1015/480/270 480w,
+            https://picsum.photos/id/1015/640/360 640w,
+            https://picsum.photos/id/1015/960/540 960w
+          "
+          sizes="(max-width: 500px) 90vw, (max-width: 900px) 70vw, (max-width: 1280px) 75vw, 960px"
+          alt="Mountain landscape"
+        />
+        <p>
+          <strong>Why this sizes value?</strong>
+          The image is near full width on small screens, scales down at medium
+          widths, and effectively caps at about 960px on large screens.
+        </p>
+        <p>Current resource: <span id="chosen">loading...</span></p>
+      </section>
+
+      <section class="panel" aria-labelledby="verify-heading">
+        <h2 id="verify-heading">How to tell which image version is showing</h2>
+        <ol>
+          <li>
+            Read the <strong>Current resource</strong> line above. It shows
+            <code>img.currentSrc</code>, the exact URL the browser chose.
+          </li>
+          <li>
+            Open DevTools (<kbd>F12</kbd>) → <strong>Network</strong> tab →
+            filter by <strong>Img</strong>.
+          </li>
+          <li>
+            Resize the browser width, then refresh. Watch the requested image
+            dimensions change (for example: <code>480/270</code>,
+            <code>640/360</code>, <code>960/540</code>).
+          </li>
+          <li>
+            In <strong>Elements</strong>, select the image and confirm
+            <code>currentSrc</code> in Properties/Console.
+          </li>
+        </ol>
+      </section>
+    </main>
+
+    <script>
+      const hero = document.getElementById("hero");
+      const chosen = document.getElementById("chosen");
+
+      function updateCurrentSrc() {
+        // currentSrc is the final URL the browser selected from srcset.
+        chosen.textContent = hero.currentSrc || hero.src;
+      }
+
+      // Update once loaded and after resize so students can observe selection changes.
+      hero.addEventListener("load", updateCurrentSrc);
+      window.addEventListener("resize", () => {
+        clearTimeout(window.__srcsetTimer);
+        window.__srcsetTimer = setTimeout(updateCurrentSrc, 120);
+      });
+
+      updateCurrentSrc();
+    </script>
+  </body>
+</html>

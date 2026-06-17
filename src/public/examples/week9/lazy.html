@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 9 — Lazy Loading Images</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #22d3ee;
+      --border: #1f2937;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Roboto, system-ui, -apple-system, Segoe UI, sans-serif;
+      background: linear-gradient(180deg, #020617 0%, #0b1120 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(2, 6, 23, 0.92);
+      backdrop-filter: blur(5px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 1.25rem;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    header p {
+      margin: 0.3rem 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 1.25rem;
+    }
+
+    .hint {
+      margin: 0 0 1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .gallery {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      min-height: 360px;
+    }
+
+    .card img {
+      display: block;
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      background: #0b1020;
+      transition: filter 300ms ease, transform 300ms ease;
+      filter: blur(8px);
+      transform: scale(1.02);
+    }
+
+    .card img.loaded {
+      filter: blur(0);
+      transform: scale(1);
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.7rem 0.9rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    .badge {
+      color: #0b1220;
+      background: var(--accent);
+      border-radius: 999px;
+      padding: 0.12rem 0.55rem;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 1.25rem 0 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Week 9 — Lazy Loading Demo (Below the Fold)</h1>
+    <p>Open DevTools → Network, enable throttling, then scroll slowly.</p>
+  </header>
+
+  <main>
+    <p class="hint">
+      The first 2 images load immediately. The rest use native <code>loading="lazy"</code>
+      and are deferred until near the viewport.
+    </p>
+
+    <section id="gallery" class="gallery" aria-label="Lazy-loaded image gallery"></section>
+
+    <footer>Tip: Watch image requests appear only as each card approaches the fold.</footer>
+  </main>
+
+  <script>
+    const gallery = document.getElementById("gallery");
+
+    // Keep enough images so deferred requests are obvious in the Network tab.
+    const imageIds = [
+      1025, 1035, 1040, 1050, 1069, 1074, 1080, 1084,
+      109, 110, 119, 133, 152, 163, 177, 183, 188, 201,
+      217, 225, 237, 239, 240, 242, 247, 250, 254, 259
+    ];
+
+    imageIds.forEach((id, index) => {
+      const card = document.createElement("article");
+      card.className = "card";
+
+      const img = document.createElement("img");
+      img.alt = `Scenery photo ${index + 1}`;
+      img.width = 900;
+      img.height = 600;
+      img.src = `https://picsum.photos/id/${id}/900/600`;
+
+      // First 2 eager, remaining lazy.
+      img.loading = index < 2 ? "eager" : "lazy";
+      if (index < 2) img.fetchPriority = "high";
+
+      img.addEventListener("load", () => img.classList.add("loaded"));
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.innerHTML = `<span>Image ${index + 1}</span><span class="badge">${index < 2 ? "EAGER" : "LAZY"}</span>`;
+
+      card.append(img, meta);
+      gallery.appendChild(card);
+    });
+  </script>
+</body>
+</html>

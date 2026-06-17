@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Week 9 — Progressive Enhancement</title>
+    <link rel="stylesheet" href="progressive.css" />
+    <script src="progressive.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <section class="panel">
+        <h1>Week 9 — Progressive Enhancement Demo</h1>
+        <p>
+          This page works without JavaScript (all content visible).
+          JavaScript adds optional enhancements: filtering and saved preference.
+        </p>
+        <noscript>
+          <p><strong>JavaScript is off:</strong> you are seeing the baseline experience.</p>
+        </noscript>
+      </section>
+
+      <section class="panel" aria-labelledby="projects-heading">
+        <h2 id="projects-heading">Student Projects</h2>
+        <p>
+          Showing <span id="count" class="count">6</span> projects
+          <span class="js-only">(filtered client-side)</span>.
+        </p>
+
+        <div class="toolbar" role="group" aria-label="Filter projects by type">
+          <button type="button" data-filter="all" class="active">All</button>
+          <button type="button" data-filter="html">HTML/CSS</button>
+          <button type="button" data-filter="js">JavaScript</button>
+          <button type="button" data-filter="api">API</button>
+        </div>
+
+        <div id="projects" class="projects">
+          <article class="project" data-type="html">
+            <h3>Landing Page</h3>
+            <p>Accessible page structure and responsive layout.</p>
+            <span class="pill">HTML/CSS</span>
+          </article>
+
+          <article class="project" data-type="js">
+            <h3>Todo App</h3>
+            <p>DOM updates, events, and local state.</p>
+            <span class="pill">JavaScript</span>
+          </article>
+
+          <article class="project" data-type="api">
+            <h3>Weather Lookup</h3>
+            <p>Fetch data from an external weather API.</p>
+            <span class="pill">API</span>
+          </article>
+
+          <article class="project" data-type="html">
+            <h3>Personal Profile</h3>
+            <p>Semantic tags and clean visual hierarchy.</p>
+            <span class="pill">HTML/CSS</span>
+          </article>
+
+          <article class="project" data-type="js">
+            <h3>Quiz Game</h3>
+            <p>State management with timing and scoring logic.</p>
+            <span class="pill">JavaScript</span>
+          </article>
+
+          <article class="project" data-type="api">
+            <h3>Photo Browser</h3>
+            <p>Paginated API requests with lazy-loaded media.</p>
+            <span class="pill">API</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>How this demonstrates progressive enhancement</h2>
+        <ol>
+          <li><strong>Baseline HTML:</strong> all projects are readable and usable.</li>
+          <li><strong>CSS layer:</strong> improves visual layout only.</li>
+          <li><strong>JavaScript layer:</strong> adds filtering and remembers last filter.</li>
+        </ol>
+      </section>
+    </main>    
+  </body>
+</html>
