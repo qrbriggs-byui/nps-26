@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Week 9 — Cumulative Layout Shift (CLS)</title>
+    <style>
+      :root {
+        --bg: #0b1120;
+        --panel: #111827;
+        --text: #e5e7eb;
+        --muted: #94a3b8;
+        --accent: #22d3ee;
+        --danger: #fb7185;
+        --ok: #34d399;
+        --border: #1f2937;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: Roboto, system-ui, -apple-system, "Segoe UI", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+      }
+
+      header, main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 1rem;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      h1, h2, h3 { margin-top: 0; }
+      p, li { color: var(--muted); }
+
+      .row {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr;
+      }
+
+      @media (min-width: 900px) {
+        .row { grid-template-columns: 1fr 1fr; }
+      }
+
+      .demo-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: .5rem;
+      }
+
+      .badge {
+        font-size: .8rem;
+        padding: .15rem .5rem;
+        border-radius: 999px;
+        font-weight: 700;
+      }
+
+      .bad { background: #3f1d2e; color: #fecdd3; }
+      .good { background: #11332a; color: #a7f3d0; }
+
+      .feed {
+        display: grid;
+        gap: .75rem;
+        max-width: 520px; /* keep demo images/cards smaller */
+      }
+
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        background: #0f172a;
+      }
+
+      .card p {
+        margin: 0;
+        padding: .75rem;
+      }
+
+      /* BAD: no reserved space for image */
+      .bad-feed img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      /* GOOD: reserve space to prevent shift */
+      .good-feed img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+      }
+
+      .slot {
+        border: 1px dashed #374151;
+        border-radius: 8px;
+        margin-bottom: .75rem;
+        display: grid;
+        place-items: center;
+        color: #9ca3af;
+        font-size: .9rem;
+      }
+
+      .bad-slot {
+        height: auto; /* no reserved height */
+        padding: 0;   /* starts collapsed, causes shift when filled */
+      }
+
+      .good-slot {
+        min-height: 90px; /* reserved ad/banner area */
+      }
+
+      .banner {
+        background: linear-gradient(90deg, #155e75, #0e7490);
+        color: white;
+        padding: .75rem;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+
+      .controls {
+        display: flex;
+        gap: .5rem;
+        flex-wrap: wrap;
+        margin-top: .5rem;
+      }
+
+      button {
+        border: 1px solid #374151;
+        background: #0f172a;
+        color: var(--text);
+        border-radius: 8px;
+        padding: .45rem .7rem;
+        cursor: pointer;
+      }
+
+      .score {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        color: var(--accent);
+      }
+
+      .warn { color: var(--danger); }
+      .ok { color: var(--ok); }
+    </style>
+  </head>
+  <body>
+    <header class="panel">
+      <h1>Week 9 — Cumulative Layout Shift (CLS)</h1>
+      <p>
+        CLS measures unexpected movement of visible content. Lower is better:
+        <strong class="ok">good &lt; 0.1</strong>, <strong class="warn">poor &gt; 0.25</strong>.
+      </p>
+      <p>Use the buttons and watch content jump in the bad example.</p>
+      <p>Session CLS: <span id="clsScore" class="score">0.0000</span></p>
+    </header>
+
+    <main>
+      <section class="row">
+        <article class="panel">
+          <div class="demo-title">
+            <h2>What causes CLS</h2>
+            <span class="badge bad">Bad Example</span>
+          </div>
+
+          <div id="badSlot" class="slot bad-slot"></div>
+
+          <div id="badFeed" class="feed bad-feed">
+            <div class="card"><p>Article intro text. Scroll and click simulate.</p></div>
+            <div class="card">
+              <!-- no width/height attributes: browser can't reserve exact space -->
+              <img src="https://picsum.photos/id/1018/640/360" alt="Landscape" />
+              <p>Image loaded without reserved dimensions.</p>
+            </div>
+            <div class="card"><p>More content below that will shift downward.</p></div>
+          </div>
+
+          <div class="controls">
+            <button id="badInsert">Simulate late banner (causes shift)</button>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="demo-title">
+            <h2>How to prevent CLS</h2>
+            <span class="badge good">Good Example</span>
+          </div>
+
+          <div id="goodSlot" class="slot good-slot">Reserved banner space</div>
+
+          <div id="goodFeed" class="feed good-feed">
+            <div class="card"><p>Article intro text. Same structure, stable layout.</p></div>
+            <div class="card">
+              <!-- width/height lets browser infer aspect ratio before image loads -->
+              <img
+                src="https://picsum.photos/id/1018/640/360"
+                width="640"
+                height="360"
+                alt="Landscape"
+              />
+              <p>Image has intrinsic dimensions (space reserved).</p>
+            </div>
+            <div class="card"><p>Content below stays in place.</p></div>
+          </div>
+
+          <div class="controls">
+            <button id="goodInsert">Load banner into reserved slot (stable)</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel">
+        <h3>Checklist to reduce CLS</h3>
+        <ul>
+          <li>Set <code>width</code> and <code>height</code> (or <code>aspect-ratio</code>) on images/video/iframes.</li>
+          <li>Reserve fixed/min height for ads, embeds, and delayed components.</li>
+          <li>Avoid inserting content above existing content unless space is preallocated.</li>
+          <li>Use transform/opacity animations instead of layout-changing animations.</li>
+        </ul>
+      </section>
+    </main>
+
+    <script>
+      const clsScoreEl = document.getElementById("clsScore");
+      const badSlot = document.getElementById("badSlot");
+      const goodSlot = document.getElementById("goodSlot");
+
+      // Tracks real layout-shift entries for this page session.
+      let clsValue = 0;
+      if ("PerformanceObserver" in window) {
+        const observer = new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            // Ignore user-input-triggered shifts per CLS definition.
+            if (!entry.hadRecentInput) clsValue += entry.value;
+          }
+          clsScoreEl.textContent = clsValue.toFixed(4);
+        });
+        observer.observe({ type: "layout-shift", buffered: true });
+      }
+
+      document.getElementById("badInsert").addEventListener("click", () => {
+        // Inserts a banner into a collapsed area -> pushes content down (shift).
+        badSlot.innerHTML = '<div class="banner">Late promo banner loaded</div>';
+        badSlot.style.padding = ".25rem";
+      });
+
+      document.getElementById("goodInsert").addEventListener("click", () => {
+        // Same banner, but slot height is reserved -> little/no shift.
+        goodSlot.innerHTML = '<div class="banner">Promo banner loaded in reserved space</div>';
+      });
+    </script>
+  </body>
+</html>
