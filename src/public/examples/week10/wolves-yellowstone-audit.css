@@ -1,0 +1,81 @@
+:root {
+  --nps-green-900: #1f3b2d;
+  --nps-green-700: #2f5d46;
+  --nps-green-600: #3a6f54;
+  --nps-tan-100: #f3efe3;
+  --nps-tan-200: #e9e1cd;
+  --nps-brown-700: #5a4633;
+  --nps-brown-500: #7a6044;
+  --nps-link: #1f5e4a;
+  --nps-link-hover: #154737;
+  --nps-text: #1f2937;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  color: var(--nps-text);
+  background: var(--nps-tan-100);
+}
+
+header, main, footer {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--nps-green-900), var(--nps-green-700));
+  color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--nps-tan-200);
+}
+
+.card {
+  background: #fff;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--nps-tan-200);
+  border-left: 6px solid var(--nps-brown-500);
+  box-shadow: 0 2px 8px rgba(31, 59, 45, 0.08);
+}
+
+h1, h2, h3 {
+  color: var(--nps-brown-700);
+}
+
+/* Fix contrast in hero area */
+.hero h1 {
+  color: #ffffff;
+}
+
+a {
+  color: var(--nps-link);
+}
+
+a:hover,
+a:focus {
+  color: var(--nps-link-hover);
+}
+
+.fake-link {
+  color: var(--nps-link);
+  text-decoration: underline;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+footer {
+  color: #334155;
+}
