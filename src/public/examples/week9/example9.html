@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCAG Compliance Example</title>
+    <style>
+        main{
+            font-family: sans-serif;
+            font-size: 1.3rem;
+        }
+
+        .hidden{
+            display: none;
+        }
+
+        .wolf-overlay{
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vw;
+            width: 100%;
+            background-color: rgba(0, 0, 0, .5);
+            margin: 1rem;
+            padding: 1rem;
+        }
+
+        .wolf-dialog{
+            max-width: 600px;
+            background-color: lightblue;
+            margin: 1rem;
+            padding: 1rem;
+        }
+
+        .wolf-dialog p img{
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <article aria-labelledby="article1-heading" aria-describedby="article1-desc">
+            <h1 id="article1-heading">Wolves in the Yellowstone</h1>
+            <p id="article1-desc">Wolves are an important part of the Yellowstone ecosystem.</p>
+            <p><button id="dialog-button">Click Here To See A Picture Of a Wolf</button></p>
+        </article>
+        <section class="wolf-overlay hidden" aria-expanded="false">
+            <div class="wolf-dialog" aria-hidden="true" role="dialog">
+                <h2>Yellowstone Wolf</h2>
+                <p>
+                    <img src="https://www.nps.gov/npgallery/GetAsset/cebbfa91-94e3-4e62-bf1d-1dca050c5d5f/proxy/hires?" 
+                    alt="Close-up Image of Wolf in Yellowstone">
+                </p>
+                <p><button id="dialog-closer">Close</button></p>
+            </div>
+        </section>
+    </main>
+</body>
+<script>
+    const dialogButton = document.getElementById("dialog-button")
+    const wolfOverlay = document.querySelector(".wolf-overlay")
+    const wolfDialog = document.querySelector(".wolf-dialog")
+    const dialogCloser = document.getElementById("dialog-closer")
+
+    dialogButton.addEventListener("click", () => {
+        wolfOverlay.classList.remove("hidden");
+        wolfOverlay.setAttribute("aria-expanded", "true")
+        wolfDialog.setAttribute("aria-hidden", "false")
+
+    })
+
+    dialogCloser.addEventListener("click", () => {
+        wolfOverlay.classList.add("hidden");
+        wolfOverlay.setAttribute("aria-expanded", "false")
+        wolfDialog.setAttribute("aria-hidden", "true")
+    })
+</script>
+</html>

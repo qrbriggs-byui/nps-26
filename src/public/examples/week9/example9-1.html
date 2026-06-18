@@ -67,7 +67,7 @@
           <button id="show-dialog">Click here to see a wolf.</button>
         </p>
       </section>
-      <div class="wolf-modal-overlay hidden">
+      <div class="wolf-modal-overlay hidden" aria-expanded="false">
         <div id="wolf-modal" role="dialog" aria-modal="true" aria-hidden="true">
           <div>
             <img
@@ -85,17 +85,20 @@
     let showbutton = document.getElementById("show-dialog");
     let closebutton = document.getElementById("close-dialog");
     let wolfdialog = document.getElementById("wolf-modal");
+    let wolfoverlay = document.querySelector(".wolf-modal-overlay");
 
     showbutton.addEventListener("click", () => {
       let overlay = document.querySelector(".wolf-modal-overlay");
       overlay.classList.remove("hidden");
+      overlay.setAttribute("aria-expanded", "true");
       wolfdialog.setAttribute("aria-hidden", "false");
     });
 
     closebutton.addEventListener("click", () => {
       let overlay = document.querySelector(".wolf-modal-overlay");
       overlay.classList.add("hidden");
-      wolfdialog.setAttribute("aria-hidden", "true");
+      overlay.setAttribute("aria-expanded", "false");
+      wolfdialog.setAttribute("aria-hidden", "true");      
     });
   </script>
 </html>
