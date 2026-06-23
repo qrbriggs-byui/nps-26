@@ -24,31 +24,13 @@
                 Try entering text in each field below to see how different patterns work.
             </p>
 
-            <!-- Email Pattern -->
+            <!-- Numbers Only Pattern -->
             <div class="regex-demo">
-                <h3>Email Address</h3>
-                <p class="pattern">Pattern: <code>/^[^\s@]+@[^\s@]+\.[^\s@]+$/</code></p>
-                <p class="description">Matches a basic email format: something@domain.extension</p>
-                <input type="text" class="test-input" id="email-test" placeholder="user@example.com" />
-                <div class="result" id="email-result"></div>
-            </div>
-
-            <!-- Phone Number Pattern -->
-            <div class="regex-demo">
-                <h3>US Phone Number</h3>
-                <p class="pattern">Pattern: <code>/^\d{3}-\d{3}-\d{4}$/</code></p>
-                <p class="description">Matches format: 123-456-7890 (3 digits, 3 digits, 4 digits with dashes)</p>
-                <input type="text" class="test-input" id="phone-test" placeholder="801-555-0123" />
-                <div class="result" id="phone-result"></div>
-            </div>
-
-            <!-- URL Pattern -->
-            <div class="regex-demo">
-                <h3>Website URL</h3>
-                <p class="pattern">Pattern: <code>/^https?:\/\/.+\..+$/</code></p>
-                <p class="description">Matches HTTP or HTTPS URLs: http(s)://something.something</p>
-                <input type="text" class="test-input" id="url-test" placeholder="https://example.com" />
-                <div class="result" id="url-result"></div>
+                <h3>Numbers Only</h3>
+                <p class="pattern">Pattern: <code>/^\d+$/</code></p>
+                <p class="description">Matches one or more digits with no other characters.</p>
+                <input type="text" class="test-input" id="numbers-test" placeholder="12345" />
+                <div class="result" id="numbers-result"></div>
             </div>
 
             <!-- ZIP Code Pattern -->
@@ -60,31 +42,13 @@
                 <div class="result" id="zip-result"></div>
             </div>
 
-            <!-- Username Pattern -->
+            <!-- Phone Number Pattern -->
             <div class="regex-demo">
-                <h3>Username</h3>
-                <p class="pattern">Pattern: <code>/^[a-zA-Z0-9_-]{3,16}$/</code></p>
-                <p class="description">Letters, numbers, underscores, or dashes. Between 3 and 16 characters long.</p>
-                <input type="text" class="test-input" id="username-test" placeholder="john_doe" />
-                <div class="result" id="username-result"></div>
-            </div>
-
-            <!-- Password Pattern -->
-            <div class="regex-demo">
-                <h3>Strong Password</h3>
-                <p class="pattern">Pattern: <code>/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/</code></p>
-                <p class="description">At least 8 characters with uppercase, lowercase, number, and special character.</p>
-                <input type="password" class="test-input" id="password-test" placeholder="MyP@ss123" />
-                <div class="result" id="password-result"></div>
-            </div>
-
-            <!-- Hex Color Pattern -->
-            <div class="regex-demo">
-                <h3>Hex Color Code</h3>
-                <p class="pattern">Pattern: <code>/^#([0-9A-F]{3}){1,2}$/i</code></p>
-                <p class="description">Matches hex color codes: #FFF or #FFFFFF (case-insensitive)</p>
-                <input type="text" class="test-input" id="color-test" placeholder="#FF5733" />
-                <div class="result" id="color-result"></div>
+                <h3>US Phone Number</h3>
+                <p class="pattern">Pattern: <code>/^\d{3}-\d{3}-\d{4}$/</code></p>
+                <p class="description">Matches format: 123-456-7890 (3 digits, 3 digits, 4 digits with dashes)</p>
+                <input type="text" class="test-input" id="phone-test" placeholder="801-555-0123" />
+                <div class="result" id="phone-result"></div>
             </div>
 
             <!-- Date Pattern -->
@@ -96,15 +60,51 @@
                 <div class="result" id="date-result"></div>
             </div>
 
-            <!-- Numbers Only Pattern -->
+            <!-- Hex Color Pattern -->
             <div class="regex-demo">
-                <h3>Numbers Only</h3>
-                <p class="pattern">Pattern: <code>/^\d+$/</code></p>
-                <p class="description">Matches one or more digits with no other characters.</p>
-                <input type="text" class="test-input" id="numbers-test" placeholder="12345" />
-                <div class="result" id="numbers-result"></div>
+                <h3>Hex Color Code</h3>
+                <p class="pattern">Pattern: <code>/^#([0-9A-F]{3}){1,2}$/i</code></p>
+                <p class="description">Matches hex color codes: #FFF or #FFFFFF (case-insensitive)</p>
+                <input type="text" class="test-input" id="color-test" placeholder="#FF5733" />
+                <div class="result" id="color-result"></div>
             </div>
-        </section>
+
+            <!-- Username Pattern -->
+            <div class="regex-demo">
+                <h3>Username</h3>
+                <p class="pattern">Pattern: <code>/^[a-zA-Z0-9_-]{3,16}$/</code></p>
+                <p class="description">Letters, numbers, underscores, or dashes. Between 3 and 16 characters long.</p>
+                <input type="text" class="test-input" id="username-test" placeholder="john_doe" />
+                <div class="result" id="username-result"></div>
+            </div>
+
+            <!-- Email Pattern -->
+            <div class="regex-demo">
+                <h3>Email Address</h3>
+                <p class="pattern">Pattern: <code>/^[^\s@]+@[^\s@]+\.[^\s@]+$/</code></p>
+                <p class="description">Matches a basic email format: something@domain.extension</p>
+                <input type="text" class="test-input" id="email-test" placeholder="user@example.com" />
+                <div class="result" id="email-result"></div>
+            </div>
+
+            <!-- URL Pattern -->
+            <div class="regex-demo">
+                <h3>Website URL</h3>
+                <p class="pattern">Pattern: <code>/^https?:\/\/.+\..+$/</code></p>
+                <p class="description">Matches HTTP or HTTPS URLs: http(s)://something.something</p>
+                <input type="text" class="test-input" id="url-test" placeholder="https://example.com" />
+                <div class="result" id="url-result"></div>
+            </div>
+
+            <!-- Password Pattern -->
+            <div class="regex-demo">
+                <h3>Strong Password</h3>
+                <p class="pattern">Pattern: <code>/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/</code></p>
+                <p class="description">At least 8 characters with uppercase, lowercase, number, and special character.</p>
+                <input type="password" class="test-input" id="password-test" placeholder="MyP@ss123" />
+                <div class="result" id="password-result"></div>
+            </div>
+       </section>
 
         <section class="content glossary-section">
             <h2>Regex Symbols & Operators Glossary</h2>
