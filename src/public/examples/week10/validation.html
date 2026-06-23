@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Week 10 — Client-Side Form Validation</title>
+
+    <!-- Put script near the top of <head> and defer execution -->
+    <script src="validation.js" defer></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="validation.css" />
+</head>
+<body>
+    <main>
+        <header class="hero">
+            <h1>Client-Side Form Validation</h1>
+            <p class="subtitle">Week 10 • Pattern, input types, and custom validation</p>
+        </header>
+
+        <section class="content" aria-labelledby="validation-heading">
+            <h2 id="validation-heading">Example Registration Form</h2>
+            <p class="intro">
+                This demo shows built-in validation with <code>type="email"</code>, the
+                <code>pattern</code> attribute, and custom validation that runs on submit.
+                Errors appear next to the field, invalid fields are styled, and focus moves to
+                the first problem.
+            </p>
+
+            <div class="summary" id="error-summary" aria-live="polite"></div>
+
+            <form id="signup-form" novalidate>
+                <div class="field" id="name-field">
+                    <label for="fullName">Full name</label>
+                    <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        autocomplete="name"
+                        required
+                        minlength="2"
+                    />
+                    <div class="hint">Required. Must be at least 2 characters.</div>
+                    <div class="error-message" id="fullName-error"></div>
+                </div>
+
+                <div class="field" id="email-field">
+                    <label for="email">Email address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        autocomplete="email"
+                        required
+                        placeholder="name@example.com"
+                    />
+                    <div class="hint">Uses the browser's email validation.</div>
+                    <div class="error-message" id="email-error"></div>
+                </div>
+
+                <div class="field" id="zip-field">
+                    <label for="zipCode">ZIP code</label>
+                    <input
+                        type="text"
+                        id="zipCode"
+                        name="zipCode"
+                        required
+                        pattern="^\d{5}(-\d{4})?$"
+                        inputmode="numeric"
+                        placeholder="12345"
+                    />
+                    <div class="hint">Pattern: 5 digits or 5+4 format.</div>
+                    <div class="error-message" id="zipCode-error"></div>
+                </div>
+
+                <div class="field" id="password-field">
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        required
+                        minlength="8"
+                    />
+                    <div class="hint">Required. Must be at least 8 characters.</div>
+                    <div class="error-message" id="password-error"></div>
+                </div>
+
+                <div class="field" id="confirm-field">
+                    <label for="confirmPassword">Confirm password</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        required
+                    />
+                    <div class="hint">Custom validation checks that both passwords match.</div>
+                    <div class="error-message" id="confirmPassword-error"></div>
+                </div>
+
+                <div class="actions">
+                    <button type="submit">Submit form</button>
+                </div>
+
+                <p class="result" id="result" hidden></p>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
