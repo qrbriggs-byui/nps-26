@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Week 10 — Regular Expressions</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="regex.css" />
+</head>
+<body>
+    <main>
+        <header class="hero">
+            <h1>Regular Expressions</h1>
+            <p class="subtitle">Week 10 • Pattern matching with regex</p>
+        </header>
+
+        <section class="content">
+            <h2>Interactive Regex Tests</h2>
+            <p class="intro">
+                Regular expressions (regex) are patterns used to match and validate text.
+                Try entering text in each field below to see how different patterns work.
+            </p>
+
+            <!-- Email Pattern -->
+            <div class="regex-demo">
+                <h3>Email Address</h3>
+                <p class="pattern">Pattern: <code>/^[^\s@]+@[^\s@]+\.[^\s@]+$/</code></p>
+                <p class="description">Matches a basic email format: something@domain.extension</p>
+                <input type="text" class="test-input" id="email-test" placeholder="user@example.com" />
+                <div class="result" id="email-result"></div>
+            </div>
+
+            <!-- Phone Number Pattern -->
+            <div class="regex-demo">
+                <h3>US Phone Number</h3>
+                <p class="pattern">Pattern: <code>/^\d{3}-\d{3}-\d{4}$/</code></p>
+                <p class="description">Matches format: 123-456-7890 (3 digits, 3 digits, 4 digits with dashes)</p>
+                <input type="text" class="test-input" id="phone-test" placeholder="801-555-0123" />
+                <div class="result" id="phone-result"></div>
+            </div>
+
+            <!-- URL Pattern -->
+            <div class="regex-demo">
+                <h3>Website URL</h3>
+                <p class="pattern">Pattern: <code>/^https?:\/\/.+\..+$/</code></p>
+                <p class="description">Matches HTTP or HTTPS URLs: http(s)://something.something</p>
+                <input type="text" class="test-input" id="url-test" placeholder="https://example.com" />
+                <div class="result" id="url-result"></div>
+            </div>
+
+            <!-- ZIP Code Pattern -->
+            <div class="regex-demo">
+                <h3>ZIP Code</h3>
+                <p class="pattern">Pattern: <code>/^\d{5}(-\d{4})?$/</code></p>
+                <p class="description">Matches 5 digits or 5 digits with optional 4-digit extension: 12345 or 12345-6789</p>
+                <input type="text" class="test-input" id="zip-test" placeholder="84043" />
+                <div class="result" id="zip-result"></div>
+            </div>
+
+            <!-- Username Pattern -->
+            <div class="regex-demo">
+                <h3>Username</h3>
+                <p class="pattern">Pattern: <code>/^[a-zA-Z0-9_-]{3,16}$/</code></p>
+                <p class="description">Letters, numbers, underscores, or dashes. Between 3 and 16 characters long.</p>
+                <input type="text" class="test-input" id="username-test" placeholder="john_doe" />
+                <div class="result" id="username-result"></div>
+            </div>
+
+            <!-- Password Pattern -->
+            <div class="regex-demo">
+                <h3>Strong Password</h3>
+                <p class="pattern">Pattern: <code>/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/</code></p>
+                <p class="description">At least 8 characters with uppercase, lowercase, number, and special character.</p>
+                <input type="password" class="test-input" id="password-test" placeholder="MyP@ss123" />
+                <div class="result" id="password-result"></div>
+            </div>
+
+            <!-- Hex Color Pattern -->
+            <div class="regex-demo">
+                <h3>Hex Color Code</h3>
+                <p class="pattern">Pattern: <code>/^#([0-9A-F]{3}){1,2}$/i</code></p>
+                <p class="description">Matches hex color codes: #FFF or #FFFFFF (case-insensitive)</p>
+                <input type="text" class="test-input" id="color-test" placeholder="#FF5733" />
+                <div class="result" id="color-result"></div>
+            </div>
+
+            <!-- Date Pattern -->
+            <div class="regex-demo">
+                <h3>Date (YYYY-MM-DD)</h3>
+                <p class="pattern">Pattern: <code>/^\d{4}-\d{2}-\d{2}$/</code></p>
+                <p class="description">Matches dates in ISO format: 2026-06-23</p>
+                <input type="text" class="test-input" id="date-test" placeholder="2026-06-23" />
+                <div class="result" id="date-result"></div>
+            </div>
+
+            <!-- Numbers Only Pattern -->
+            <div class="regex-demo">
+                <h3>Numbers Only</h3>
+                <p class="pattern">Pattern: <code>/^\d+$/</code></p>
+                <p class="description">Matches one or more digits with no other characters.</p>
+                <input type="text" class="test-input" id="numbers-test" placeholder="12345" />
+                <div class="result" id="numbers-result"></div>
+            </div>
+        </section>
+
+        <section class="content glossary-section">
+            <h2>Regex Symbols & Operators Glossary</h2>
+            <table class="glossary-table">
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>^</code></td>
+                        <td>Caret / Start anchor</td>
+                        <td>Matches the start of a string</td>
+                    </tr>
+                    <tr>
+                        <td><code>$</code></td>
+                        <td>Dollar / End anchor</td>
+                        <td>Matches the end of a string</td>
+                    </tr>
+                    <tr>
+                        <td><code>.</code></td>
+                        <td>Dot / Any character</td>
+                        <td>Matches any single character except newline</td>
+                    </tr>
+                    <tr>
+                        <td><code>*</code></td>
+                        <td>Asterisk / Zero or more</td>
+                        <td>Matches 0 or more of the preceding character</td>
+                    </tr>
+                    <tr>
+                        <td><code>+</code></td>
+                        <td>Plus / One or more</td>
+                        <td>Matches 1 or more of the preceding character</td>
+                    </tr>
+                    <tr>
+                        <td><code>?</code></td>
+                        <td>Question mark / Optional</td>
+                        <td>Matches 0 or 1 of the preceding character</td>
+                    </tr>
+                    <tr>
+                        <td><code>{n}</code></td>
+                        <td>Exact count</td>
+                        <td>Matches exactly n of the preceding character</td>
+                    </tr>
+                    <tr>
+                        <td><code>{n,m}</code></td>
+                        <td>Range count</td>
+                        <td>Matches between n and m of the preceding character</td>
+                    </tr>
+                    <tr>
+                        <td><code>[abc]</code></td>
+                        <td>Character class</td>
+                        <td>Matches any one character from the set: a, b, or c</td>
+                    </tr>
+                    <tr>
+                        <td><code>[a-z]</code></td>
+                        <td>Character range</td>
+                        <td>Matches any character in the range: a through z</td>
+                    </tr>
+                    <tr>
+                        <td><code>[^abc]</code></td>
+                        <td>Negated class</td>
+                        <td>Matches any character NOT in the set: a, b, or c</td>
+                    </tr>
+                    <tr>
+                        <td><code>\d</code></td>
+                        <td>Digit</td>
+                        <td>Matches any digit (0-9). Same as [0-9]</td>
+                    </tr>
+                    <tr>
+                        <td><code>\D</code></td>
+                        <td>Non-digit</td>
+                        <td>Matches any non-digit character</td>
+                    </tr>
+                    <tr>
+                        <td><code>\w</code></td>
+                        <td>Word character</td>
+                        <td>Matches letters, digits, and underscore [a-zA-Z0-9_]</td>
+                    </tr>
+                    <tr>
+                        <td><code>\W</code></td>
+                        <td>Non-word character</td>
+                        <td>Matches any non-word character</td>
+                    </tr>
+                    <tr>
+                        <td><code>\s</code></td>
+                        <td>Whitespace</td>
+                        <td>Matches any whitespace character (space, tab, newline)</td>
+                    </tr>
+                    <tr>
+                        <td><code>\S</code></td>
+                        <td>Non-whitespace</td>
+                        <td>Matches any non-whitespace character</td>
+                    </tr>
+                    <tr>
+                        <td><code>|</code></td>
+                        <td>Alternation / OR</td>
+                        <td>Matches either pattern: cat|dog matches "cat" or "dog"</td>
+                    </tr>
+                    <tr>
+                        <td><code>()</code></td>
+                        <td>Grouping</td>
+                        <td>Groups patterns together: (ab)+ matches "ab", "abab", etc.</td>
+                    </tr>
+                    <tr>
+                        <td><code>(?=...)</code></td>
+                        <td>Positive lookahead</td>
+                        <td>Asserts that a pattern follows (without consuming characters)</td>
+                    </tr>
+                    <tr>
+                        <td><code>\</code></td>
+                        <td>Escape character</td>
+                        <td>Treats the next character as literal: \. matches a period</td>
+                    </tr>
+                    <tr>
+                        <td><code>i</code> flag</td>
+                        <td>Case-insensitive</td>
+                        <td>Makes the pattern match uppercase and lowercase: /hello/i</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="regex.js" defer></script>
+</body>
+</html>
