@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Test</title>
+</head>
+<body>
+    <form id="myform">
+        <div id="global-errors"></div>
+        <div id="firstNameContainer">
+            <label>First Name : 
+                <input id="firstName" name="firstName" minlength="5" maxlength="50" >
+            </label>
+            <div id="first-name-error"></div>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+<script>
+    const myform = document.getElementById("myform")
+    const firstNameInput = document.getElementById("firstName")
+    const firstNameError = document.getElementById("first-name-error")
+
+    function validateFirstName(){
+        firstNameError.innerHTML = ""
+        if (!firstNameInput.validity.valid || firstNameInput.value.length < 5 || firstNameInput.value.length > 50){
+            firstNameError.innerHTML = `<p>Name is not 5-50 characters</p>`
+            return false
+        }
+        return true
+    }
+
+    firstNameInput.addEventListener("blur", () => {
+        validateFirstName()
+    })
+
+    console.log("adding submit event listener")
+    myform.addEventListener("submit", (event) => {        
+        document.getElementById("global-errors").innerHTML=""
+        event.preventDefault()
+
+        if (!validateFirstName()){
+            document.getElementById("global-errors").innerHTML="<p>Correct errors before submitting</p>"
+            return
+        }
+        event.target.submit()
+    })
+    console.log("added submit event listener")
+</script>
+</html>
